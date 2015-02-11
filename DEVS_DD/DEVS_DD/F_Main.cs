@@ -37,7 +37,7 @@ namespace DEVS_DD
             OpenFileDialog ofd = new OpenFileDialog();
             {
                 ofd.AutoUpgradeEnabled  = false;
-                ofd.InitialDirectory    = "D:\\SVN\\devssim\\trunk\\DEVSC++\\DEVSC++\\Log-XML";
+                ofd.InitialDirectory    = "D:\\Git\\devs-objectc\\DEVS ObjectC\\DEVS_ObjectC\\Log-XML";
                 ofd.RestoreDirectory    = true;
                 ofd.Filter              = "XML Files (*.xml)|*.xml|All Files (*.*)|*.*";
                 ofd.FilterIndex         = 0;
