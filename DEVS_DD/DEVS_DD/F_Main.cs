@@ -135,14 +135,8 @@ namespace DEVS_DD
 
 		private void CreateModel( string name )
 		{
-			if( row == 0 )
-			{
-				MODEL[mNum] = new F_MODEL( name );
-				MODEL[mNum].Text = name;
-				SetFormPosition( name );
-				mNum++;
-			}
-			else if( !CheckExistModel( name ) )
+            // 첫 번재 생성되는 모델일 때
+            if ( row == 0 || !CheckExistModel( name ) )
 			{
 				MODEL[mNum] = new F_MODEL( name );
 				MODEL[mNum].Text = name;

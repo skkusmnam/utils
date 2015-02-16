@@ -21,6 +21,7 @@ namespace DEVS_DD{
 		public	const int INIT_Y	= 100;
 
 		// Model Name
+		public	const string EF_A	= "EF-A";
 		public	const string EF		= "EF";
 		public	const string TRANSD	= "TRANSD";
 		public	const string GENR	= "GENR";

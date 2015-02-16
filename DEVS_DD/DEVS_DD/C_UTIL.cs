@@ -31,6 +31,11 @@ namespace DEVS_DD
 			( ( DataGridView )OBJ ).Rows.Add( N );
         }
 
+		public void RemoveGridRow( int N )
+		{
+			( ( DataGridView )OBJ ).Rows.RemoveAt( N );
+		}
+
         public void SetCell( int C, string S )
         {
 			( ( DataGridView )OBJ )[C, ( ( DataGridView )OBJ ).RowCount - 2].Value = S;

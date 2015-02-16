@@ -5,10 +5,18 @@ using System.Text;
 using System.Xml;
 using System.Collections;
 
-namespace DEVS_DD {
-    class C_XML : C_UTIL {
+namespace DEVS_DD 
+{
+    class C_XML : C_UTIL 
+	{
         XmlTextReader reader;
-		ArrayList mList = new ArrayList();	// Model List
+
+		// Model List
+		ArrayList mList = new ArrayList();
+
+		// DEVS_ObjectC로부터 XML를 받을 때 시작 모델의 정보가 다르기 때문에
+		// EF-A부터 시작을 알리기 위한 변수
+		private bool start_flag = false; 
 
         private string fileName;
 
@@ -36,7 +44,7 @@ namespace DEVS_DD {
             {
                 if( CheckEndElement( reader.Name, reader.NodeType.ToString() ) == true )
                     continue;
-
+			
                 switch( reader.Name )
                 {
                     case C_DEFINE.COORDINATOR:
@@ -68,7 +76,7 @@ namespace DEVS_DD {
             }
         }
 
-        public bool CheckEndElement( string startElement, string endElement )
+        private bool CheckEndElement( string startElement, string endElement )
         {
             if( endElement == "EndElement" )
                 return true;
@@ -76,7 +84,7 @@ namespace DEVS_DD {
             return false;
         }
 
-        public void LoadAttributes( XmlNodeType type, int flag )
+		private void LoadAttributes( XmlNodeType type, int flag )
         {
             switch( type )
             {
@@ -84,6 +92,16 @@ namespace DEVS_DD {
                 case XmlNodeType.Element:
                     while( reader.MoveToNextAttribute() )
                     {
+						if( start_flag == false )
+						{
+							if( !CheckRootModel( reader.Value ) )
+							{
+								start_flag = true;
+								RemoveGridRow( GetRowCount() );
+								return;
+							}
+						}
+
                         switch( flag )
                         {
                             case C_DEFINE.CRD:
@@ -107,7 +125,17 @@ namespace DEVS_DD {
             }
         }
 
-        public void InsertNode( string attr, string value )
+		private bool CheckRootModel( string name )
+		{
+			if( name == C_DEFINE.EF_A )
+			{
+				start_flag = true;
+				return true;
+			}
+			return false;
+		}
+
+		private void InsertNode( string attr, string value )
         {
             switch( attr )
             {
@@ -145,7 +173,7 @@ namespace DEVS_DD {
             }
         }
 
-		public void AddModelList( string value )
+		private void AddModelList( string value )
 		{
 			int flag = 0;
 

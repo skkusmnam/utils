@@ -28,19 +28,30 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.SuspendLayout();
-			// 
-			// F_VIEW
-			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF( 7F, 12F );
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size( 232, 346 );
-			this.Name = "F_VIEW";
-			this.Text = "F_VIEW";
-			this.ResumeLayout( false );
+            this.treeView1 = new System.Windows.Forms.TreeView();
+            this.SuspendLayout();
+            // 
+            // treeView1
+            // 
+            this.treeView1.Location = new System.Drawing.Point(12, 12);
+            this.treeView1.Name = "treeView1";
+            this.treeView1.Size = new System.Drawing.Size(208, 322);
+            this.treeView1.TabIndex = 0;
+            // 
+            // F_VIEW
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(232, 346);
+            this.Controls.Add(this.treeView1);
+            this.Name = "F_VIEW";
+            this.Text = "F_VIEW";
+            this.ResumeLayout(false);
 
 		}
 
 		#endregion
+
+        private System.Windows.Forms.TreeView treeView1;
 	}
 }
