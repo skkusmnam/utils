@@ -31,9 +31,9 @@ namespace DEVS_DD
 			( ( DataGridView )OBJ ).Rows.Add( N );
         }
 
-		public void RemoveGridRow( int N )
+		public void RemoveGridRow( int R )
 		{
-			( ( DataGridView )OBJ ).Rows.RemoveAt( N );
+			( ( DataGridView )OBJ ).Rows.RemoveAt( R );
 		}
 
         public void SetCell( int C, string S )
@@ -53,6 +53,11 @@ namespace DEVS_DD
         {
 			( ( DataGridView )OBJ ).Rows.Clear();
         }
+
+		public int GetCurrentRowIndex()
+		{
+			return ( ( DataGridView )OBJ ).CurrentCell.RowIndex;
+		}
 
 		public int GetRowCount()
 		{

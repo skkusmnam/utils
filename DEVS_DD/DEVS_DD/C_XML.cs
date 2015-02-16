@@ -97,7 +97,7 @@ namespace DEVS_DD
 							if( !CheckRootModel( reader.Value ) )
 							{
 								start_flag = true;
-								RemoveGridRow( GetRowCount() );
+								RemoveGridRow( GetCurrentRowIndex() );
 								return;
 							}
 						}
