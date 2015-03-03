@@ -37,54 +37,55 @@
 			this.col4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.col5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.col6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			( ( System.ComponentModel.ISupportInitialize )( this.DG_VIEW ) ).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.DG_VIEW)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// BT_STEP
 			// 
-			this.BT_STEP.Location = new System.Drawing.Point( 342, 11 );
+			this.BT_STEP.Location = new System.Drawing.Point(423, 16);
 			this.BT_STEP.Name = "BT_STEP";
-			this.BT_STEP.Size = new System.Drawing.Size( 75, 48 );
+			this.BT_STEP.Size = new System.Drawing.Size(75, 48);
 			this.BT_STEP.TabIndex = 1;
 			this.BT_STEP.Text = "Step";
 			this.BT_STEP.UseVisualStyleBackColor = true;
-			this.BT_STEP.Click += new System.EventHandler( this.BT_STEP_Click );
+			this.BT_STEP.Click += new System.EventHandler(this.BT_STEP_Click);
 			// 
 			// BT_PLAY
 			// 
-			this.BT_PLAY.Location = new System.Drawing.Point( 423, 11 );
+			this.BT_PLAY.Location = new System.Drawing.Point(342, 16);
 			this.BT_PLAY.Name = "BT_PLAY";
-			this.BT_PLAY.Size = new System.Drawing.Size( 75, 48 );
+			this.BT_PLAY.Size = new System.Drawing.Size(75, 48);
 			this.BT_PLAY.TabIndex = 2;
 			this.BT_PLAY.Text = "Play";
 			this.BT_PLAY.UseVisualStyleBackColor = true;
-			this.BT_PLAY.Click += new System.EventHandler( this.BT_PLAY_Click );
+			this.BT_PLAY.Visible = false;
+			this.BT_PLAY.Click += new System.EventHandler(this.BT_PLAY_Click);
 			// 
 			// BT_LOAD
 			// 
-			this.BT_LOAD.Location = new System.Drawing.Point( 13, 12 );
+			this.BT_LOAD.Location = new System.Drawing.Point(13, 12);
 			this.BT_LOAD.Name = "BT_LOAD";
-			this.BT_LOAD.Size = new System.Drawing.Size( 75, 47 );
+			this.BT_LOAD.Size = new System.Drawing.Size(75, 47);
 			this.BT_LOAD.TabIndex = 3;
 			this.BT_LOAD.Text = "Load";
 			this.BT_LOAD.UseVisualStyleBackColor = true;
-			this.BT_LOAD.Click += new System.EventHandler( this.BT_LOAD_Click );
+			this.BT_LOAD.Click += new System.EventHandler(this.BT_LOAD_Click);
 			// 
 			// DG_VIEW
 			// 
 			this.DG_VIEW.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.DG_VIEW.Columns.AddRange( new System.Windows.Forms.DataGridViewColumn[] {
+			this.DG_VIEW.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.col0,
             this.col1,
             this.col2,
             this.col3,
             this.col4,
             this.col5,
-            this.col6} );
-			this.DG_VIEW.Location = new System.Drawing.Point( 13, 70 );
+            this.col6});
+			this.DG_VIEW.Location = new System.Drawing.Point(13, 70);
 			this.DG_VIEW.Name = "DG_VIEW";
 			this.DG_VIEW.RowTemplate.Height = 23;
-			this.DG_VIEW.Size = new System.Drawing.Size( 485, 238 );
+			this.DG_VIEW.Size = new System.Drawing.Size(485, 238);
 			this.DG_VIEW.TabIndex = 4;
 			// 
 			// col0
@@ -124,19 +125,19 @@
 			// 
 			// F_MAIN
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF( 7F, 12F );
+			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size( 514, 320 );
-			this.Controls.Add( this.DG_VIEW );
-			this.Controls.Add( this.BT_LOAD );
-			this.Controls.Add( this.BT_PLAY );
-			this.Controls.Add( this.BT_STEP );
+			this.ClientSize = new System.Drawing.Size(514, 320);
+			this.Controls.Add(this.DG_VIEW);
+			this.Controls.Add(this.BT_LOAD);
+			this.Controls.Add(this.BT_PLAY);
+			this.Controls.Add(this.BT_STEP);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.Name = "F_MAIN";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Main";
-			( ( System.ComponentModel.ISupportInitialize )( this.DG_VIEW ) ).EndInit();
-			this.ResumeLayout( false );
+			((System.ComponentModel.ISupportInitialize)(this.DG_VIEW)).EndInit();
+			this.ResumeLayout(false);
 
         }
 

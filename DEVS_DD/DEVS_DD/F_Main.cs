@@ -34,19 +34,19 @@ namespace DEVS_DD
         {
 			string	fileName = C_DEFINE.EMPTY;
 
-            OpenFileDialog ofd = new OpenFileDialog();
+            OpenFileDialog open_fine = new OpenFileDialog();
             {
-                ofd.AutoUpgradeEnabled  = false;
-                ofd.InitialDirectory    = "D:\\Git\\devs-objectc\\DEVS ObjectC\\DEVS_ObjectC\\Log-XML";
-                ofd.RestoreDirectory    = true;
-                ofd.Filter              = "XML Files (*.xml)|*.xml|All Files (*.*)|*.*";
-                ofd.FilterIndex         = 0;
+				open_fine.AutoUpgradeEnabled = false;
+				open_fine.InitialDirectory = "D:\\Git\\devs-objectc\\DEVS ObjectC\\DEVS_ObjectC\\Log-XML";
+				open_fine.RestoreDirectory = true;
+				open_fine.Filter = "XML Files (*.xml)|*.xml|All Files (*.*)|*.*";
+				open_fine.FilterIndex = 0;
 
-                if( ofd.ShowDialog() == DialogResult.OK )
+				if( open_fine.ShowDialog() == DialogResult.OK )
                 {
                     try
                     {
-                        fileName = ofd.FileName;
+						fileName = open_fine.FileName;
                     }
                     catch( Exception ex )
                     {

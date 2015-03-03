@@ -40,14 +40,20 @@ namespace DEVS_DD
 
         public void OpenXmlFile()
         {
+			bool flag = true;
             while( reader.Read() )
             {
                 if( CheckEndElement( reader.Name, reader.NodeType.ToString() ) == true )
                     continue;
-			
+		
                 switch( reader.Name )
                 {
                     case C_DEFINE.COORDINATOR:
+						if( flag == true )
+						{
+							flag = false;
+							continue;
+						}
 						AddGridRow( 1 );
                         SetCell( 0, C_DEFINE.COORDINATOR );
                         LoadAttributes( reader.NodeType, C_DEFINE.CRD );
@@ -94,7 +100,7 @@ namespace DEVS_DD
                     {
 						if( start_flag == false )
 						{
-							if( !CheckRootModel( reader.Value ) )
+							if( CheckRootModel( reader.Value ) )
 							{
 								start_flag = true;
 								RemoveGridRow( GetCurrentRowIndex() );
@@ -127,12 +133,14 @@ namespace DEVS_DD
 
 		private bool CheckRootModel( string name )
 		{
+			start_flag = false;
+
 			if( name == C_DEFINE.EF_A )
 			{
-				start_flag = true;
-				return true;
+				start_flag = false;
+				return start_flag;
 			}
-			return false;
+			return start_flag;
 		}
 
 		private void InsertNode( string attr, string value )
