@@ -83,12 +83,6 @@
     <Compile Include="F_MODEL.Designer.cs">
       <DependentUpon>F_MODEL.cs</DependentUpon>
     </Compile>
-    <Compile Include="F_VIEW.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="F_VIEW.Designer.cs">
-      <DependentUpon>F_VIEW.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="F_ATOMIC.resx">
@@ -99,9 +93,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="F_MODEL.resx">
       <DependentUpon>F_MODEL.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="F_VIEW.resx">
-      <DependentUpon>F_VIEW.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
