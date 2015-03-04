@@ -13,21 +13,23 @@ namespace DEVS_DD
 	{
 		C_UTIL		UTIL	= new C_UTIL();
 		F_ATOMIC	ATM		= new F_ATOMIC();
+        F_VIEW      LIST     = new F_VIEW();
 		F_MODEL[] MODEL;
 
 		private	int	row;
-		private int rCnt;	// Row Count
-		private int mNum;	// Model Num
-		private	int	mCnt;	// Model Count
+		private int row_cnt;	// Row Count
+		private int model_num;	// Model Num
+		private	int	model_cnt;	// Model Count
 
         public F_MAIN()
         {
-			row		= 0;
-			rCnt	= 0;
-			mNum	= 0;
-			mCnt	= 0;
+			row		    = 0;
+            row_cnt     = 0;
+			model_num	= 0;
+            model_cnt   = 0;
 
             InitializeComponent();
+            LIST.Show();
         }
 
         private void BT_LOAD_Click( object sender, EventArgs e )
@@ -37,7 +39,7 @@ namespace DEVS_DD
             OpenFileDialog open_fine = new OpenFileDialog();
             {
 				open_fine.AutoUpgradeEnabled = false;
-				open_fine.InitialDirectory = ".\\log\\xml\\";
+                //open_fine.InitialDirectory = ".\\log\\xml\\";
 				open_fine.RestoreDirectory = true;
 				open_fine.Filter = "XML Files (*.xml)|*.xml|All Files (*.*)|*.*";
 				open_fine.FilterIndex = 0;
@@ -64,8 +66,8 @@ namespace DEVS_DD
 			C_XML XML = new C_XML( DG_VIEW, filename );
 			XML.OpenXmlFile();
 
-			mCnt = XML.GetModelListCount();
-			MODEL = new F_MODEL[mCnt + 1];
+            model_cnt = XML.GetModelListCount();
+            MODEL = new F_MODEL[model_cnt + 1];
 
 			int rCnt = UTIL.GetRowCount() - 1;
 		}
@@ -85,16 +87,16 @@ namespace DEVS_DD
 
 			UTIL.SetRowSelection( row );
 
-			int mN = FindModel( name );
+			int num = FindModel( name );
 			string type = UTIL.GetValue( 0, row );
 
 			if( ( type == C_DEFINE.COORDINATOR ) || ( type == C_DEFINE.SIM_FIRST ) || ( type == C_DEFINE.SIM_LAST ) )
 			{
-				SetModelInfo( type, mN );
-				MODEL[mN].ShowModelInfo( type );
+                SetModelInfo(type, num);
+                MODEL[num].ShowModelInfo(type);
 
-				MODEL[mN].Show();
-				MODEL[mN].BringToFront();
+                MODEL[num].Show();
+                MODEL[num].BringToFront();
 			}
 			else if( ( type == C_DEFINE.ATOMIC_IN ) || ( type == C_DEFINE.ATOMIC_OUT) )
 			{
@@ -110,7 +112,7 @@ namespace DEVS_DD
 
 		private bool CheckExistModel( string name )
 		{
-			for( int i = 0; i < mCnt; i++ )
+            for (int i = 0; i < model_cnt; i++)
 			{
 				if( MODEL[i] == null )
 					break;
@@ -124,7 +126,7 @@ namespace DEVS_DD
 		private int FindModel( string name )
 		{
 			int i = C_DEFINE.ERR;
-			for( i = 0; i < mCnt; i++ )
+            for (i = 0; i < model_cnt; i++)
 			{
 				if( MODEL[i].Text == name )
 					break;
@@ -138,18 +140,19 @@ namespace DEVS_DD
             // 첫 번재 생성되는 모델일 때
             if ( row == 0 || !CheckExistModel( name ) )
 			{
-				MODEL[mNum] = new F_MODEL( name );
-				MODEL[mNum].Text = name;
+				MODEL[model_num] = new F_MODEL( name );
+                LIST.AddModelName( name );
+				MODEL[model_num].Text = name;
 				SetFormPosition( name );
-				mNum++;
+				model_num++;
 			}
 		}
 
 		private void SetFormPosition( string name )
 		{
-			if( mNum == 0 )
+			if( model_num == 0 )
 			{
-				MODEL[mNum].Location = new Point( C_DEFINE.INIT_X, C_DEFINE.INIT_Y );
+				MODEL[model_num].Location = new Point( C_DEFINE.INIT_X, C_DEFINE.INIT_Y );
 			}
 			else
 			{
@@ -180,7 +183,7 @@ namespace DEVS_DD
 					y = size + C_DEFINE.INIT_Y;
 				}
 
-				MODEL[mNum].Location = new Point( x, y );
+				MODEL[model_num].Location = new Point( x, y );
 			}
 		}
 
@@ -188,7 +191,7 @@ namespace DEVS_DD
 		{
 			int max = -9;
 
-			for( int i = 0; i < mNum; i++ )
+			for( int i = 0; i < model_num; i++ )
 			{
 				if( ( MODEL[i].Text == C_DEFINE.EF ) || ( MODEL[i].Text == C_DEFINE.GENR ) || ( MODEL[i].Text == C_DEFINE.TRANSD ) )
 					continue;
@@ -241,7 +244,7 @@ namespace DEVS_DD
 		{
 			UTIL.DataGrid = DG_VIEW;
 
-			for( int i = 0; i < rCnt; i++ )
+            for (int i = 0; i < row_cnt; i++)
 			{
 				string name = UTIL.GetValue( 1, row );
 				CreateModel( name );
