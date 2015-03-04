@@ -40,7 +40,6 @@ namespace DEVS_DD
 
         public void OpenXmlFile()
         {
-			bool flag = true;
             while( reader.Read() )
             {
                 if( CheckEndElement( reader.Name, reader.NodeType.ToString() ) == true )
@@ -49,11 +48,6 @@ namespace DEVS_DD
                 switch( reader.Name )
                 {
                     case C_DEFINE.COORDINATOR:
-						if( flag == true )
-						{
-							flag = false;
-							continue;
-						}
 						AddGridRow( 1 );
                         SetCell( 0, C_DEFINE.COORDINATOR );
                         LoadAttributes( reader.NodeType, C_DEFINE.CRD );

@@ -135,7 +135,7 @@
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.Name = "F_MAIN";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-			this.Text = "Main";
+			this.Text = "DEVS Diagram Display";
 			((System.ComponentModel.ISupportInitialize)(this.DG_VIEW)).EndInit();
 			this.ResumeLayout(false);
 

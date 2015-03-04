@@ -37,7 +37,7 @@ namespace DEVS_DD
             OpenFileDialog open_fine = new OpenFileDialog();
             {
 				open_fine.AutoUpgradeEnabled = false;
-				open_fine.InitialDirectory = "D:\\Git\\devs-objectc\\DEVS ObjectC\\DEVS_ObjectC\\Log-XML";
+				open_fine.InitialDirectory = ".\\log\\xml\\";
 				open_fine.RestoreDirectory = true;
 				open_fine.Filter = "XML Files (*.xml)|*.xml|All Files (*.*)|*.*";
 				open_fine.FilterIndex = 0;
