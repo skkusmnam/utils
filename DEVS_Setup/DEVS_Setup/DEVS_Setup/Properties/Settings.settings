@@ -2,16 +2,16 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="DEVS_Setup.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="SESEditorPath" Type="System.String" Scope="User">
+    <Setting Name="SESEditorPath" Type="System.String" Scope="Application">
       <Value Profile="(Default)">C:\DEVS_ObjectC\SES_Editor.exe</Value>
     </Setting>
-    <Setting Name="DEVSObjectPath" Type="System.String" Scope="User">
+    <Setting Name="DEVSObjectPath" Type="System.String" Scope="Application">
       <Value Profile="(Default)">C:\DEVS_ObjectC\framework</Value>
     </Setting>
-    <Setting Name="DEVSDiagramDisplayPath" Type="System.String" Scope="User">
+    <Setting Name="DEVSDiagramDisplayPath" Type="System.String" Scope="Application">
       <Value Profile="(Default)">C:\DEVS_ObjectC\DEVS_DD.exe</Value>
     </Setting>
-    <Setting Name="MainPath" Type="System.String" Scope="User">
+    <Setting Name="MainPath" Type="System.String" Scope="Application">
       <Value Profile="(Default)">C:\DEVS_ObjectC</Value>
     </Setting>
   </Settings>

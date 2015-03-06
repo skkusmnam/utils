@@ -23,51 +23,39 @@ namespace DEVS_Setup.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("C:\\DEVS_ObjectC\\SES_Editor.exe")]
         public string SESEditorPath {
             get {
                 return ((string)(this["SESEditorPath"]));
             }
-            set {
-                this["SESEditorPath"] = value;
-            }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("C:\\DEVS_ObjectC\\framework")]
         public string DEVSObjectPath {
             get {
                 return ((string)(this["DEVSObjectPath"]));
             }
-            set {
-                this["DEVSObjectPath"] = value;
-            }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("C:\\DEVS_ObjectC\\DEVS_DD.exe")]
         public string DEVSDiagramDisplayPath {
             get {
                 return ((string)(this["DEVSDiagramDisplayPath"]));
             }
-            set {
-                this["DEVSDiagramDisplayPath"] = value;
-            }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("C:\\DEVS_ObjectC")]
         public string MainPath {
             get {
                 return ((string)(this["MainPath"]));
-            }
-            set {
-                this["MainPath"] = value;
             }
         }
     }
