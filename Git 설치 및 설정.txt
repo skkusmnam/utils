@@ -1,0 +1,14 @@
+1. Git 설치
+http://git-scm.com/downloads
+
+2. Git Extensions 설치
+http://git-scm.com/downloads/guis
+
+3. https://github.com/ 계정 추가
+계정 알려주기
+
+4. SmartGit 설치
+http://www.syntevo.com/smartgit/download?file=smartgit/smartgit-win32-setup-jre-6_5_6.zip
+
+5. Repository 설정
+D:\git\
