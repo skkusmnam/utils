@@ -77,6 +77,7 @@
             this.textBox1.ReadOnly = true;
             this.textBox1.Size = new System.Drawing.Size(594, 21);
             this.textBox1.TabIndex = 3;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // button1
             // 
@@ -105,6 +106,7 @@
             this.textBox2.ReadOnly = true;
             this.textBox2.Size = new System.Drawing.Size(594, 21);
             this.textBox2.TabIndex = 5;
+            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // button3
             // 
@@ -123,6 +125,7 @@
             this.textBox3.ReadOnly = true;
             this.textBox3.Size = new System.Drawing.Size(594, 21);
             this.textBox3.TabIndex = 7;
+            this.textBox3.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
             // 
             // button4
             // 

@@ -58,5 +58,32 @@ namespace DEVS_Setup.Properties {
                 return ((string)(this["MainPath"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("a")]
+        public string FirstSelect {
+            get {
+                return ((string)(this["FirstSelect"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("a")]
+        public string SecondSelect {
+            get {
+                return ((string)(this["SecondSelect"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("a")]
+        public string ThirdSelect {
+            get {
+                return ((string)(this["ThirdSelect"]));
+            }
+        }
     }
 }

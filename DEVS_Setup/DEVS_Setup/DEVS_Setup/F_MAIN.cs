@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Diagnostics;
 using System.IO;
 
 using DEVS_Setup.Properties;
@@ -14,10 +15,20 @@ namespace DEVS_Setup
 {
     public partial class F_MAIN : Form
     {
+        Global m_global = new Global();
+
         static int fileNumber = 0;
         static int directoryNumber = 0;
 
         string INISaveFilepath = Application.StartupPath + @"\DEVSinfo.ini";
+
+        string MainPath = "";
+        string FirstSelect = "";
+        string SecondSelect = "";
+        string ThirdSelect = "";
+
+        string firstFileName = ""; //파일명만 o 경로명 x
+        string secondFileName = ""; //파일명만 o 경로명 x
 
         public F_MAIN()
         {
@@ -26,53 +37,49 @@ namespace DEVS_Setup
 
         private void F_MAIN_Load(object sender, EventArgs e)
         {
-            FileStream fs;
-            StreamWriter sw;
+            string textinput1 = ""; // 현재 textbox에서 사용하는 경로
+            string textinput2 = ""; // 현재 textbox에서 사용하는 경로
+            string textinput3 = ""; // 현재 textbox에서 사용하는 경로
 
-            try
-            {
-                using (fs = new FileStream(INISaveFilepath, FileMode.OpenOrCreate))
-                {
-                    using (sw = new StreamWriter(fs))
-                    {
-                        sw.WriteLine("");
-                    }
-                }
-            }
-            catch
-            {
-                
-            }                                                                           
+            m_global.CreateSubKey();
+            m_global.CreateSubKey("FileName");
+
+            m_global.GetValue("FirstSelect", out textinput1);
+            m_global.GetValue("SecondSelect", out textinput2);
+            m_global.GetValue("ThirdSelect", out textinput3);
+
+            m_global.GetValue("FirstFile", out firstFileName, "FileName");
+            m_global.GetValue("SecondFile", out secondFileName, "FileName");
+
+            m_global.SetValue("MainPath", @"C:\DEVS_ObjectC"); //절대경로 (가끔 바뀜)
+            m_global.SetValue("SESEditorPath", @"C:\DEVS_ObjectC\DEVS_DD.exe"); //절대경로 (가끔 바뀜)
+            m_global.SetValue("DEVSObjectPath", @"C:\DEVS_ObjectC\framework"); //절대경로 (가끔 바뀜)
+            m_global.SetValue("DEVSDiagramDisplayPath", @"C:\DEVS_ObjectC\SES_Editor.exe"); //절대경로 (가끔 바뀜)
+
+            m_global.GetValue("MainPath", out this.MainPath);
+            m_global.GetValue("SESEditorPath", out this.FirstSelect);
+            m_global.GetValue("DEVSObjectPath", out this.SecondSelect);
+            m_global.GetValue("DEVSDiagramDisplayPath", out this.ThirdSelect);
+
+            textBox1.Text = textinput1;
+            textBox2.Text = textinput2;
+            textBox3.Text = textinput3;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            FileStream fs;
-            StreamReader sr;
+            OpenFileDialog ofd = new OpenFileDialog();
 
-            try
+            ofd.FileName = "";
+            ofd.DefaultExt = "exe";
+            ofd.Filter = "exe Files (*.exe)|*.exe";
+
+            if (DialogResult.OK == ofd.ShowDialog())
             {
-                using (fs = new FileStream(INISaveFilepath, FileMode.Open))
-                {
-                    using (sr = new StreamReader(fs))
-                    {
-
-                    }
-                }
-
-                OpenFileDialog ofd = new OpenFileDialog();
-
-                ofd.FileName = "";
-                ofd.DefaultExt = "exe";
-                ofd.Filter = "exe Files (*.exe)|*.exe";
-
-                if (DialogResult.OK == ofd.ShowDialog())
-                {
-                    textBox1.Text = ofd.FileName;
-                }
-            }
-            catch
-            {
+                textBox1.Text = ofd.FileName;
+                firstFileName = ofd.SafeFileName;
+                m_global.SetValue("FirstSelect", textBox1.Text);
+                m_global.SetValue("FirstFile", firstFileName, "FileName");
             }
         }
 
@@ -84,6 +91,7 @@ namespace DEVS_Setup
             if (DialogResult.OK == fbd.ShowDialog())
             {
                 textBox2.Text = fbd.SelectedPath;
+                m_global.SetValue("SecondSelect", textBox2.Text);
             }
         }
 
@@ -98,16 +106,15 @@ namespace DEVS_Setup
             if (DialogResult.OK == ofd.ShowDialog())
             {
                 textBox3.Text = ofd.FileName;
+                secondFileName = ofd.SafeFileName;
+                m_global.SetValue("ThirdSelect", textBox3.Text);
+                m_global.SetValue("SecondFile", secondFileName, "FileName");
             }
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            string MainPath = Settings.Default["MainPath"].ToString();
-
-            string firstPath = Settings.Default["SESEditorPath"].ToString();
-            string secondPath = Settings.Default["DEVSObjectPath"].ToString();
-            string thirdPath = Settings.Default["DEVSDiagramDisplayPath"].ToString();
+            toolStripStatusLabel1.Text = "현재 상태";
 
             DirectoryInfo destDirectory;
             try
@@ -120,7 +127,16 @@ namespace DEVS_Setup
                     {
                         destDirectory.Create();
                     }
-                    File.Copy(textBox1.Text, firstPath);
+
+                    foreach (Process proc in Process.GetProcesses())
+                    {
+                        if (proc.ProcessName.StartsWith(firstFileName))
+                        {
+                            proc.Kill();
+                        }
+                    }
+
+                    File.Copy(textBox1.Text, FirstSelect, true);
 
                     fileNumber++;
                 }
@@ -134,7 +150,15 @@ namespace DEVS_Setup
                         destDirectory.Create();
                     }
 
-                    File.Copy(textBox3.Text, thirdPath);
+                    foreach (Process proc in Process.GetProcesses())
+                    {
+                        if (proc.ProcessName.StartsWith(secondFileName))
+                        {
+                            proc.Kill();
+                        }
+                    }
+
+                    File.Copy(textBox3.Text, ThirdSelect, true);
 
                     fileNumber++;
                 }
@@ -142,7 +166,7 @@ namespace DEVS_Setup
                 if (textBox2.Text != "")
                 {
                     DirectoryInfo sourceDirectory = new DirectoryInfo(textBox2.Text);
-                    destDirectory = new DirectoryInfo(secondPath);
+                    destDirectory = new DirectoryInfo(SecondSelect);
 
                     if (!destDirectory.Exists)
                     {
@@ -153,6 +177,12 @@ namespace DEVS_Setup
                 }
 
                 toolStripStatusLabel1.Text = string.Format("복사 완료, 총 {0}개의 디렉토리와 {1}개의 파일을 복사함", directoryNumber, fileNumber);
+
+                fileNumber = 0;
+                directoryNumber = 0;
+            }
+            catch(IOException ie)
+            {
             }
             catch
             {
@@ -166,7 +196,7 @@ namespace DEVS_Setup
 
             foreach (FileInfo file in sourceFiles)
             {
-                file.CopyTo(destDirectory.FullName + "\\" + file.Name);
+                file.CopyTo(destDirectory.FullName + "\\" + file.Name, true);
                 fileNumber++;
             }
 
@@ -182,5 +212,20 @@ namespace DEVS_Setup
 
         }
         #endregion
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            m_global.SetValue("FirstSelect", textBox1.Text);
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+            m_global.SetValue("SecondSelect", textBox2.Text);
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+            m_global.SetValue("ThirdSelect", textBox3.Text);
+        }
     }
 }

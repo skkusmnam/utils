@@ -14,5 +14,14 @@
     <Setting Name="MainPath" Type="System.String" Scope="Application">
       <Value Profile="(Default)">C:\DEVS_ObjectC</Value>
     </Setting>
+    <Setting Name="FirstSelect" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">a</Value>
+    </Setting>
+    <Setting Name="SecondSelect" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">a</Value>
+    </Setting>
+    <Setting Name="ThirdSelect" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">a</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
