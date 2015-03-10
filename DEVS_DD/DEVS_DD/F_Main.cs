@@ -7,6 +7,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Net;
+using System.Net.Sockets;
 
 namespace DEVS_DD
 {
@@ -15,6 +17,10 @@ namespace DEVS_DD
 		C_UTIL		UTIL	= new C_UTIL();
 		F_ATOMIC	ATM		= new F_ATOMIC();
 		F_MODEL[] MODEL;
+
+        private byte[] data = new byte[1024];
+        private int size = 1024;
+        private Socket server;
 
 		private	int	row;
 		private int row_cnt;	// Row Count
@@ -295,6 +301,66 @@ namespace DEVS_DD
 
             // 컬럼 갯수가 변경되는 구조라면 sorter를 null 처리하여야 함
             V_LIST.ListViewItemSorter = null;
+        }
+
+        private void F_MAIN_Load( object sender, EventArgs e )
+        {
+            server = new Socket( AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp );
+            IPEndPoint iep = new IPEndPoint( IPAddress.Any, 10000 );
+            server.Bind( iep );
+            server.Listen( 5 );
+            server.BeginAccept( new AsyncCallback( AcceptConn ), server );
+        }
+
+        private void AcceptConn( IAsyncResult iar )
+        {
+            TB_MSG.Text = "";
+            Socket oldserver = (Socket)iar.AsyncState;
+            Socket client = oldserver.EndAccept( iar );
+            TB_MSG.Text = client.RemoteEndPoint.ToString() + " is accepted.";
+            string welcome = "Welcome to DEVS Diagram Display";
+            byte[] message1 = Encoding.UTF8.GetBytes( welcome );
+            client.BeginSend( message1, 0, message1.Length, SocketFlags.None, new AsyncCallback( SendData ), client );
+        }
+
+        private void SendData( IAsyncResult iar )
+        {
+            Socket client = (Socket)iar.AsyncState;
+            int sent = client.EndSend( iar );
+            client.BeginReceive( data, 0, size, SocketFlags.None, new AsyncCallback( ReceiveData ), client );
+        }
+
+        private void ReceiveData( IAsyncResult iar )
+        {
+            try
+            {
+                Socket client = (Socket)iar.AsyncState;
+                int recv = client.EndReceive( iar );
+
+                if ( recv == 0 )
+                {
+                    client.Close();
+                    TB_MSG.Text = "Waiting for a Client...";
+                    server.BeginAccept( new AsyncCallback( AcceptConn ), server );
+                    return;
+                }
+
+                string recvData = Encoding.UTF8.GetString( data, 0, recv );
+                TB_LOG.Text = "";
+                TB_LOG.Text += recvData + Environment.NewLine;
+                byte[] message2 = Encoding.UTF8.GetBytes( recvData );
+                client.BeginSend( message2, 0, message2.Length, SocketFlags.None, new AsyncCallback( SendData ), client );
+            }
+            catch ( Exception e )
+            {
+                TB_MSG.Text = e.Message.ToString();
+            }
+        }
+
+        private void TB_LOG_TextChanged( object sender, EventArgs e )
+        {
+            TB_LOG.SelectionStart = TB_LOG.Text.Length;
+            TB_LOG.ScrollToCaret();
         }
     }
 
