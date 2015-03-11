@@ -20,6 +20,15 @@ namespace DEVS_DD {
 		private string phase;
 		private string job;
 
+		public F_MODEL()
+		{
+			message = DEFINE.EMPTY;
+			from = DEFINE.EMPTY;
+			port = DEFINE.EMPTY;
+			time = DEFINE.EMPTY;
+			saying = DEFINE.EMPTY;
+		}
+
 		public F_MODEL( string name )
 		{
 			this.name	= name;

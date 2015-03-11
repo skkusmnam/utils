@@ -78,7 +78,7 @@ namespace DEVS_DD
 						break;
 					case 3:
 						bool flag = false;
-						if( token[i] == "yes" )
+						if( token[i] == DEFINE.STR_YES )
 							flag = true;
 						Pruned = flag;
 						break;

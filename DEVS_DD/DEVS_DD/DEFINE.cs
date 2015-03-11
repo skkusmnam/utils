@@ -18,6 +18,7 @@ namespace DEVS_DD{
 		public const int INIT = 0;
 
 		public const string STR_EMPTY = "";
+		public const string STR_YES = "1";
 
 		// Form Position
 		public	const int FORM_GAP	= 100;

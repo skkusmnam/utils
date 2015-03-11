@@ -17,7 +17,8 @@ namespace DEVS_DD
 		C_UTIL		UTIL	= new C_UTIL();
 		MODEL_LIST MODEL_LIST = new MODEL_LIST();
 		F_ATOMIC	ATM		= new F_ATOMIC();
-		F_MODEL[] MODEL;
+		F_MODEL MODEL = new F_MODEL();
+		//F_MODEL[] MODEL;
 
         private byte[] data = new byte[1024];
         private int size = 1024;
@@ -28,7 +29,8 @@ namespace DEVS_DD
 		private int model_num;	// Model Num
 		private	int	model_cnt;	// Model Count
 
-		List<MODEL_LIST> model_list = new List<MODEL_LIST>();
+		List<F_MODEL> Model_Form = new List<F_MODEL>();
+		List<MODEL_LIST> Model_List = new List<MODEL_LIST>();
 
         public F_MAIN()
         {
@@ -75,7 +77,7 @@ namespace DEVS_DD
 			XML.OpenXmlFile();
 
             model_cnt = XML.GetModelListCount();
-            MODEL = new F_MODEL[model_cnt + 1];
+			//MODEL = new F_MODEL[model_cnt + 1];
 
 			int rCnt = UTIL.GetRowCount() - 1;
 		}
@@ -100,11 +102,11 @@ namespace DEVS_DD
 
 			if( ( type == DEFINE.COORDINATOR ) || ( type == DEFINE.SIM_FIRST ) || ( type == DEFINE.SIM_LAST ) )
 			{
-                SetModelInfo(type, num);
-                MODEL[num].ShowModelInfo(type);
+				//SetModelInfo(type, num);
+				//MODEL[num].ShowModelInfo(type);
 
-                MODEL[num].Show();
-                MODEL[num].BringToFront();
+				//MODEL[num].Show();
+				//MODEL[num].BringToFront();
 			}
 			else if( ( type == DEFINE.ATOMIC_IN ) || ( type == DEFINE.ATOMIC_OUT) )
 			{
@@ -122,11 +124,11 @@ namespace DEVS_DD
 		{
             for (int i = 0; i < model_cnt; i++)
 			{
-				if( MODEL[i] == null )
-					break;
+				//if( MODEL[i] == null )
+				//    break;
 
-				if( MODEL[i].Text == name )
-					return true;
+				//if( MODEL[i].Text == name )
+				//    return true;
 			}
 			return false;
 		}
@@ -136,8 +138,8 @@ namespace DEVS_DD
 			int i = DEFINE.ERR;
             for (i = 0; i < model_cnt; i++)
 			{
-				if( MODEL[i].Text == name )
-					break;
+				//if( MODEL[i].Text == name )
+				//    break;
 			}
 
 			return i;
@@ -154,11 +156,16 @@ namespace DEVS_DD
             // 첫 번재 생성되는 모델일 때
             if ( row == 0 || !CheckExistModel( name ) )
 			{
-				MODEL[model_num] = new F_MODEL( name );
+				F_MODEL Model = new F_MODEL( name );
+				//MODEL[model_num] = new F_MODEL( name );
                 AddListItem( name );
-				MODEL[model_num].Text = name;
+				Model.Text = name;
+				//MODEL[model_num].Text = name;
 				SetFormPosition( name );
+				
 				model_num++;
+
+				Model_Form.Add( Model );				
 			}
 		}
 
@@ -166,38 +173,38 @@ namespace DEVS_DD
 		{
 			if( model_num == 0 )
 			{
-				MODEL[model_num].Location = new Point( DEFINE.INIT_X, DEFINE.INIT_Y );
+				//MODEL[model_num].Location = new Point( DEFINE.INIT_X, DEFINE.INIT_Y );
 			}
 			else
 			{
 				int n = -1, x = -1, y = -1;
 
-				if( name == DEFINE.EF )
-				{
-					x = MODEL[0].Location.X + MODEL[0].Size.Width + DEFINE.FORM_GAP;
-					y = MODEL[0].Location.Y;
-				}
-				else if( name == DEFINE.GENR )
-				{
-					n = FindModel( DEFINE.EF );
-					x = MODEL[n].Location.X + ( DEFINE.INIT_X );
-					y = MODEL[n].Location.Y + ( DEFINE.INIT_X );
-				}
-				else if( name == DEFINE.TRANSD )
-				{
-					n = FindModel( DEFINE.EF );
-					x = MODEL[n].Location.X + DEFINE.INIT_X;
-					y = MODEL[n].Location.Y + DEFINE.INIT_Y * 2;
-				}
-				else
-				{
-					int size = FindLargeLocation();
+				//if( name == DEFINE.EF )
+				//{
+				//    x = MODEL[0].Location.X + MODEL[0].Size.Width + DEFINE.FORM_GAP;
+				//    y = MODEL[0].Location.Y;
+				//}
+				//else if( name == DEFINE.GENR )
+				//{
+				//    n = FindModel( DEFINE.EF );
+				//    x = MODEL[n].Location.X + ( DEFINE.INIT_X );
+				//    y = MODEL[n].Location.Y + ( DEFINE.INIT_X );
+				//}
+				//else if( name == DEFINE.TRANSD )
+				//{
+				//    n = FindModel( DEFINE.EF );
+				//    x = MODEL[n].Location.X + DEFINE.INIT_X;
+				//    y = MODEL[n].Location.Y + DEFINE.INIT_Y * 2;
+				//}
+				//else
+				//{
+				//    int size = FindLargeLocation();
 
-					x = size + DEFINE.INIT_X;
-					y = size + DEFINE.INIT_Y;
-				}
+				//    x = size + DEFINE.INIT_X;
+				//    y = size + DEFINE.INIT_Y;
+				//}
 
-				MODEL[model_num].Location = new Point( x, y );
+				//MODEL[model_num].Location = new Point( x, y );
 			}
 		}
 
@@ -207,11 +214,11 @@ namespace DEVS_DD
 
 			for( int i = 0; i < model_num; i++ )
 			{
-				if( ( MODEL[i].Text == DEFINE.EF ) || ( MODEL[i].Text == DEFINE.GENR ) || ( MODEL[i].Text == DEFINE.TRANSD ) )
-					continue;
+				//if( ( MODEL[i].Text == DEFINE.EF ) || ( MODEL[i].Text == DEFINE.GENR ) || ( MODEL[i].Text == DEFINE.TRANSD ) )
+				//    continue;
 
-				if( MODEL[i].Location.X > max )
-					max = MODEL[i].Location.X;
+				//if( MODEL[i].Location.X > max )
+				//    max = MODEL[i].Location.X;
 			}
 
 			return max;
@@ -223,22 +230,22 @@ namespace DEVS_DD
 			
 			if( i != DEFINE.ERR )
 			{
-				switch( type )
-				{
-					case DEFINE.COORDINATOR:
-					case DEFINE.SIM_FIRST:
-						MODEL[i].Message= UTIL.GetValue( 2, row );
-						MODEL[i].From	= UTIL.GetValue( 3, row );
-						MODEL[i].Time	= UTIL.GetValue( 4, row );
-						MODEL[i].Port	= UTIL.GetValue( 5, row );
-						MODEL[i].Saying	= UTIL.GetValue( 6, row );
-						break;
-					case DEFINE.SIM_LAST:
-						MODEL[i].Sigma	= UTIL.GetValue( 2, row );
-						MODEL[i].Phase	= UTIL.GetValue( 3, row );
-						MODEL[i].Job	= UTIL.GetValue( 5, row );
-						break;
-				}				
+				//switch( type )
+				//{
+				//    case DEFINE.COORDINATOR:
+				//    case DEFINE.SIM_FIRST:
+				//        MODEL[i].Message = UTIL.GetValue( 2, row );
+				//        MODEL[i].From = UTIL.GetValue( 3, row );
+				//        MODEL[i].Time = UTIL.GetValue( 4, row );
+				//        MODEL[i].Port = UTIL.GetValue( 5, row );
+				//        MODEL[i].Saying = UTIL.GetValue( 6, row );
+				//        break;
+				//    case DEFINE.SIM_LAST:
+				//        MODEL[i].Sigma = UTIL.GetValue( 2, row );
+				//        MODEL[i].Phase = UTIL.GetValue( 3, row );
+				//        MODEL[i].Job = UTIL.GetValue( 5, row );
+				//        break;
+				//}				
 			}
 			else
 				MessageBox.Show( C_ERROR.E009 );
@@ -267,14 +274,95 @@ namespace DEVS_DD
 			}
 		}
 
+		private void TB_LOG_TextChanged( object sender, EventArgs e )
+		{
+			TB_LOG.SelectionStart = TB_LOG.Text.Length;
+			TB_LOG.ScrollToCaret();
+		}
+
+		private void CreateModelForm( string message )
+		{
+			int num = Convert.ToInt32( message[0] ) - 48;
+			if( num == DEFINE.INIT )
+			{
+				ParseMessage( message );
+
+				for( int i = 0; i < Model_List.Count; i++ )
+				{
+					CreateModel( Model_List[i].Name );
+					Model_Form[i].Show();
+				}
+
+				row++;
+				//CreateModel( name );
+
+				//UTIL.SetRowSelection( row );
+
+				//int num = FindModel( name );
+				//string type = UTIL.GetValue( 0, row );
+
+				//if( ( type == DEFINE.COORDINATOR ) || ( type == DEFINE.SIM_FIRST ) || ( type == DEFINE.SIM_LAST ) )
+				//{
+				//    SetModelInfo( type, num );
+				//    MODEL[num].ShowModelInfo( type );
+
+				//    MODEL[num].Show();
+				//    MODEL[num].BringToFront();
+				//}
+				//else if( ( type == DEFINE.ATOMIC_IN ) || ( type == DEFINE.ATOMIC_OUT ) )
+				//{
+				//    SetAtomicInfo();
+				//    ATM.ShowAtomicInfo( type );
+
+				//    ATM.Show();
+				//    ATM.BringToFront();
+				//}
+
+				//row++;
+
+			}
+		}
+
+		private void ParseMessage( string message )
+		{
+			List<string> model_line = new List<string>();
+
+			string[] line = message.Split( '|' );
+			for( int i = 0; i < line.Length; i++ )
+			{
+				if( i == 0 )
+					continue;
+				else if( line[i] != DEFINE.STR_EMPTY )
+					model_line.Add( line[i] );
+			}
+
+			for( int i = 0; i < model_line.Count; i++ )
+			{
+				MODEL_LIST Entity = new MODEL_LIST();
+
+				if( !Entity.SetData( model_line[i] ) )
+				{
+					MessageBox.Show( C_ERROR.E010 );
+					return;
+				}
+				Model_List.Add( Entity );
+			}
+		}
+
+		private void BT_PACKET_Click( object sender, EventArgs e )
+		{
+			string temp = "0|CM,root,EF_A,1,|AM,EF_A,P,2,|CM,EF_A,EF,2,|AM,EF,GENR,3,|AM,EF,TRANSD,3,|";
+			CreateModelForm( temp );
+		}
+
         private void V_LIST_DoubleClick( object sender, EventArgs e )
         {
             int index = V_LIST.FocusedItem.Index;
             string finding_model = V_LIST.Items[index].SubItems[0].Text;
             int num = FindModel( finding_model );
 
-            MODEL[num].Show();
-            MODEL[num].BringToFront();
+			//MODEL[num].Show();
+			//MODEL[num].BringToFront();
         }
 
         private void V_LIST_ColumnClick( object sender, ColumnClickEventArgs e )
@@ -360,53 +448,6 @@ namespace DEVS_DD
                 TB_MSG.Text = e.Message.ToString();
             }
         }
-
-        private void TB_LOG_TextChanged( object sender, EventArgs e )
-        {
-            TB_LOG.SelectionStart = TB_LOG.Text.Length;
-            TB_LOG.ScrollToCaret();
-        }
-
-		private void CreateModelForm( string message )
-		{
-			int num = Convert.ToInt32( message[0] ) - 48;
-			if( num == DEFINE.INIT )
-			{
-				ParseMessage( message );
-
-			}
-		}
-
-		private void ParseMessage( string message )
-		{
-			MODEL_LIST Entity = new MODEL_LIST();
-			List<string> model_line = new List<string>();
-
-			string[] line = message.Split( '|' );
-			for( int i = 0; i < line.Length; i++ )
-			{
-				if( i == 0 )
-					continue;
-				else if( line[i] != DEFINE.STR_EMPTY )
-					model_line.Add( line[i] );
-			}
-
-			for( int i = 0; i < model_line.Count; i++ )
-			{
-				if( !Entity.SetData( model_line[i] ) )
-				{
-					MessageBox.Show( C_ERROR.E010 );
-					return;
-				}
-				model_list.Add( Entity );
-			}
-		}
-
-		private void BT_PACKET_Click ( object sender, EventArgs e )
-		{
-			string temp = "0|CM,root,EF_A,1,|AM,EF_A,P,2,|CM,EF_A,EF,2,|AM,EF,GENR,3,|AM,EF,TRANSD,3,|";
-			ParseMessage( temp );
-		}
     }
 
     // 리스트뷰의 정렬을 위하여 사용함.
