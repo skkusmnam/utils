@@ -28,7 +28,6 @@ namespace DEVS_DD
 		private int model_num;	// Model Num
 		private	int	model_cnt;	// Model Count
 
-		List<string> model_line = new List<string>();
 		List<MODEL_LIST> model_list = new List<MODEL_LIST>();
 
         public F_MAIN()
@@ -354,7 +353,7 @@ namespace DEVS_DD
                 TB_LOG.Text += recvData + Environment.NewLine;
 				//byte[] message2 = Encoding.UTF8.GetBytes( recvData );
 				//client.BeginSend( message2, 0, message2.Length, SocketFlags.None, new AsyncCallback( SendData ), client );
-				ParseMessage( recvData );
+				CreateModelForm( recvData );
             }
             catch ( Exception e )
             {
@@ -368,35 +367,39 @@ namespace DEVS_DD
             TB_LOG.ScrollToCaret();
         }
 
-		private void ParseMessage( string message )
+		private void CreateModelForm( string message )
 		{
-			//int num = Convert.ToInt32( message[0] );
 			int num = Convert.ToInt32( message[0] ) - 48;
 			if( num == DEFINE.INIT )
 			{
-				//string[] token = message.Split( '|' );
-				//foreach( string line in token )
-				//{
-				//    if( line.
-				//    if( line.Length > 0 )
-				//        model_line.Add( line );
-				//}
+				ParseMessage( message );
 
-				string[] words = message.Split( '|' );
+			}
+		}
 
-				for( int i = 0; i < words.Length; i++ )
-				{
-					if( i == 0 )
-						continue;
-					else if( words[i] != DEFINE.STR_EMPTY )
-						model_line.Add( words[i] );
-				}
+		private void ParseMessage( string message )
+		{
+			MODEL_LIST Entity = new MODEL_LIST();
+			List<string> model_line = new List<string>();
+
+			string[] line = message.Split( '|' );
+			for( int i = 0; i < line.Length; i++ )
+			{
+				if( i == 0 )
+					continue;
+				else if( line[i] != DEFINE.STR_EMPTY )
+					model_line.Add( line[i] );
 			}
 
-			
-
-
-			//MessageBox.Show( message[0].ToString() );
+			for( int i = 0; i < model_line.Count; i++ )
+			{
+				if( !Entity.SetData( model_line[i] ) )
+				{
+					MessageBox.Show( C_ERROR.E010 );
+					return;
+				}
+				model_list.Add( Entity );
+			}
 		}
 
 		private void BT_PACKET_Click ( object sender, EventArgs e )
