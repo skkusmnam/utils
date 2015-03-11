@@ -10,7 +10,13 @@ using System.Windows.Forms;
 namespace DEVS_DD {
 	public partial class F_MODEL: Form 
 	{
+		private string type;
+		private string model;
+		private string parent;
 		private string name;
+		private bool pruned;
+		private int depth;
+
 		private string message;
 		private string from;
 		private string port;
@@ -22,27 +28,98 @@ namespace DEVS_DD {
 
 		public F_MODEL()
 		{
+			type = DEFINE.EMPTY;
+			parent = DEFINE.EMPTY;
+			name = DEFINE.EMPTY;
+			pruned = false;
+			depth = -1;
+
 			message = DEFINE.EMPTY;
 			from = DEFINE.EMPTY;
 			port = DEFINE.EMPTY;
 			time = DEFINE.EMPTY;
 			saying = DEFINE.EMPTY;
-		}
-
-		public F_MODEL( string name )
-		{
-			this.name	= name;
-
-			message = DEFINE.EMPTY;
-			from	= DEFINE.EMPTY;
-			port	= DEFINE.EMPTY;
-			time	= DEFINE.EMPTY;
-			saying	= DEFINE.EMPTY;
 
 			InitializeComponent();
 
 			TB_POSX.Text = this.Location.X.ToString();
 			TB_POSY.Text = this.Location.Y.ToString();
+		}
+
+		public string Type
+		{
+			get { return this.type; }
+			set { this.type = value; }
+		}
+
+		public string Model
+		{
+			get { return this.model; }
+			set { this.model = value; }
+		}
+
+		public string Parent
+		{
+			get { return this.parent; }
+			set { this.parent = value; }
+		}
+
+		public string Name
+		{
+			get { return this.name; }
+			set { this.name = value; }
+		}
+
+		public bool Pruned
+		{
+			get { return this.pruned; }
+			set { this.pruned = value; }
+		}
+
+		public int Depth
+		{
+			get { return this.depth; }
+			set { this.depth = value; }
+		}
+
+		public bool SetData( string data )
+		{
+			string[] token = data.Split( ',' );
+
+			for( int i = 0; i < token.Length; i++ )
+			{
+				switch( i )
+				{
+					//case 0:
+					//    Type = token[i];
+					//    break;
+					case 0:
+						Model = token[i];
+						break;
+					case 1:
+						Parent = token[i];
+						break;
+					case 2:
+						Name = token[i];
+						break;
+					case 3:
+						Depth = Convert.ToInt32( token[i] );
+						break;
+					//Pruned
+					//case 4:
+					//    bool flag = false;
+					//    if( token[i] == DEFINE.YES )
+					//        flag = true;
+					//    Pruned = flag;
+					//    break;
+					case 4:
+						break;
+					default:
+						return false;
+				}
+			}
+
+			return true;
 		}
 
 		public string Message

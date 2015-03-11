@@ -63,7 +63,6 @@
   <ItemGroup>
     <Compile Include="DEFINE.cs" />
     <Compile Include="C_ERROR.cs" />
-    <Compile Include="MODEL_LIST.cs" />
     <Compile Include="C_UTIL.cs" />
     <Compile Include="C_XML.cs" />
     <Compile Include="F_ATOMIC.cs">

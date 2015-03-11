@@ -15,10 +15,7 @@ namespace DEVS_DD
     public partial class F_MAIN: Form 
 	{
 		C_UTIL		UTIL	= new C_UTIL();
-		MODEL_LIST MODEL_LIST = new MODEL_LIST();
 		F_ATOMIC	ATM		= new F_ATOMIC();
-		F_MODEL MODEL = new F_MODEL();
-		//F_MODEL[] MODEL;
 
         private byte[] data = new byte[1024];
         private int size = 1024;
@@ -29,8 +26,8 @@ namespace DEVS_DD
 		private int model_num;	// Model Num
 		private	int	model_cnt;	// Model Count
 
-		List<F_MODEL> Model_Form = new List<F_MODEL>();
-		List<MODEL_LIST> Model_List = new List<MODEL_LIST>();
+		List<int> Depth_List = new List<int>();
+		List<F_MODEL> Form_List = new List<F_MODEL>();
 
         public F_MAIN()
         {
@@ -84,40 +81,40 @@ namespace DEVS_DD
 
         private void BT_STEP_Click( object sender, EventArgs e )
         {
-			UTIL.DataGrid = DG_VIEW;
+			//UTIL.DataGrid = DG_VIEW;
 
-			if( row == UTIL.GetRowCount() - 2 )
-			{
-				MessageBox.Show( C_ERROR.E009 );
-				return;
-			}
+			//if( row == UTIL.GetRowCount() - 2 )
+			//{
+			//    MessageBox.Show( C_ERROR.E009 );
+			//    return;
+			//}
 			
-			string name = UTIL.GetValue( 1, row );
-			CreateModel( name );
+			//string name = UTIL.GetValue( 1, row );
+			//CreateModel( name );
 
-			UTIL.SetRowSelection( row );
+			//UTIL.SetRowSelection( row );
 
-			int num = FindModel( name );
-			string type = UTIL.GetValue( 0, row );
+			//int num = FindModel( name );
+			//string type = UTIL.GetValue( 0, row );
 
-			if( ( type == DEFINE.COORDINATOR ) || ( type == DEFINE.SIM_FIRST ) || ( type == DEFINE.SIM_LAST ) )
-			{
-				//SetModelInfo(type, num);
-				//MODEL[num].ShowModelInfo(type);
+			//if( ( type == DEFINE.COORDINATOR ) || ( type == DEFINE.SIM_FIRST ) || ( type == DEFINE.SIM_LAST ) )
+			//{
+			//    //SetModelInfo(type, num);
+			//    //MODEL[num].ShowModelInfo(type);
 
-				//MODEL[num].Show();
-				//MODEL[num].BringToFront();
-			}
-			else if( ( type == DEFINE.ATOMIC_IN ) || ( type == DEFINE.ATOMIC_OUT) )
-			{
-				SetAtomicInfo();
-				ATM.ShowAtomicInfo( type );
+			//    //MODEL[num].Show();
+			//    //MODEL[num].BringToFront();
+			//}
+			//else if( ( type == DEFINE.ATOMIC_IN ) || ( type == DEFINE.ATOMIC_OUT) )
+			//{
+			//    SetAtomicInfo();
+			//    ATM.ShowAtomicInfo( type );
 
-				ATM.Show();
-				ATM.BringToFront();
-			}
+			//    ATM.Show();
+			//    ATM.BringToFront();
+			//}
 
-			row++;
+			//row++;
         }
 
 		private bool CheckExistModel( string name )
@@ -151,61 +148,81 @@ namespace DEVS_DD
             V_LIST.EndUpdate();
         }
 
-		private void CreateModel( string name )
+		private void CreateModel()
 		{
-            // 첫 번재 생성되는 모델일 때
-            if ( row == 0 || !CheckExistModel( name ) )
+			for( int i = 0; i < Form_List.Count; i++ )
 			{
-				F_MODEL Model = new F_MODEL( name );
-				//MODEL[model_num] = new F_MODEL( name );
-                AddListItem( name );
-				Model.Text = name;
-				//MODEL[model_num].Text = name;
-				SetFormPosition( name );
-				
-				model_num++;
+				string temp_name = Form_List[i].Name;
+				Form_List[i].Text = temp_name;
+				Form_List[i].Show();
 
-				Model_Form.Add( Model );				
+				AddListItem( temp_name );
+				model_num++;
+			}
+			SetFormPosition();
+		}
+
+		private void GetMinDepth()
+		{
+			//if( Depth_List.Count > idx )
+			//{
+			//    Depth_List.RemoveAt( idx );
+			//    Depth_List.Sort();
+			//}
+
+			
+
+			//if( Depth_List.Count == 0 )
+			//    return -1;
+			//else
+			//    return Depth_List[0];
+		}
+
+		private void SetFormPosition()
+		{
+			int i = 0;
+			int pos_x = DEFINE.INIT_X;
+			int pos_y = DEFINE.INIT_Y;
+
+			SetModelDepth();
+
+			while( Depth_List.Count != 0 )
+			{
+				int min_depth = Depth_List[0];
+
+				for( i = 0; i < Form_List.Count; i++ )
+				{
+					// position flag 필요
+					if( min_depth == Form_List[i].Depth )
+					{
+						Form_List[i].Location = new Point( pos_x, pos_y );
+						Depth_List.RemoveAt( 0 );
+
+						if( Depth_List.Count != 0 )
+							min_depth = Depth_List[0];
+						break;
+					}
+				}
+
+				if( i == min_depth )
+				{
+					pos_y = pos_y + DEFINE.FORM_GAP;
+				}
+				else if( i == min_depth - 1 )
+				{
+					pos_x = pos_x + DEFINE.FORM_GAP;
+					pos_y = pos_y + DEFINE.FORM_GAP;
+				}
 			}
 		}
 
-		private void SetFormPosition( string name )
+		private void SetModelDepth()
 		{
-			if( model_num == 0 )
+			for( int i = 0; i < Form_List.Count; i++ )
 			{
-				//MODEL[model_num].Location = new Point( DEFINE.INIT_X, DEFINE.INIT_Y );
+				Depth_List.Add( Form_List[i].Depth );
 			}
-			else
-			{
-				int n = -1, x = -1, y = -1;
-
-				//if( name == DEFINE.EF )
-				//{
-				//    x = MODEL[0].Location.X + MODEL[0].Size.Width + DEFINE.FORM_GAP;
-				//    y = MODEL[0].Location.Y;
-				//}
-				//else if( name == DEFINE.GENR )
-				//{
-				//    n = FindModel( DEFINE.EF );
-				//    x = MODEL[n].Location.X + ( DEFINE.INIT_X );
-				//    y = MODEL[n].Location.Y + ( DEFINE.INIT_X );
-				//}
-				//else if( name == DEFINE.TRANSD )
-				//{
-				//    n = FindModel( DEFINE.EF );
-				//    x = MODEL[n].Location.X + DEFINE.INIT_X;
-				//    y = MODEL[n].Location.Y + DEFINE.INIT_Y * 2;
-				//}
-				//else
-				//{
-				//    int size = FindLargeLocation();
-
-				//    x = size + DEFINE.INIT_X;
-				//    y = size + DEFINE.INIT_Y;
-				//}
-
-				//MODEL[model_num].Location = new Point( x, y );
-			}
+			Depth_List.Sort();
 		}
 
 		private int FindLargeLocation()
@@ -263,15 +280,15 @@ namespace DEVS_DD
 
 		private void BT_PLAY_Click( object sender, EventArgs e )
 		{
-			UTIL.DataGrid = DG_VIEW;
+			//UTIL.DataGrid = DG_VIEW;
 
-            for (int i = 0; i < row_cnt; i++)
-			{
-				string name = UTIL.GetValue( 1, row );
-				CreateModel( name );
-				UTIL.SetRowSelection( row );
-				row++;
-			}
+			//for (int i = 0; i < row_cnt; i++)
+			//{
+			//    string name = UTIL.GetValue( 1, row );
+			//    CreateModel( name );
+			//    UTIL.SetRowSelection( row );
+			//    row++;
+			//}
 		}
 
 		private void TB_LOG_TextChanged( object sender, EventArgs e )
@@ -286,14 +303,8 @@ namespace DEVS_DD
 			if( num == DEFINE.INIT )
 			{
 				ParseMessage( message );
+				CreateModel();
 
-				for( int i = 0; i < Model_List.Count; i++ )
-				{
-					CreateModel( Model_List[i].Name );
-					Model_Form[i].Show();
-				}
-
-				row++;
 				//CreateModel( name );
 
 				//UTIL.SetRowSelection( row );
@@ -331,21 +342,21 @@ namespace DEVS_DD
 			for( int i = 0; i < line.Length; i++ )
 			{
 				if( i == 0 )
-					continue;
-				else if( line[i] != DEFINE.STR_EMPTY )
+					model_line.Add( DEFINE.ROOT_COORDINATOR );
+				else if( line[i] != DEFINE.EMPTY )
 					model_line.Add( line[i] );
 			}
 
 			for( int i = 0; i < model_line.Count; i++ )
 			{
-				MODEL_LIST Entity = new MODEL_LIST();
+				F_MODEL Entity = new F_MODEL();
 
 				if( !Entity.SetData( model_line[i] ) )
 				{
 					MessageBox.Show( C_ERROR.E010 );
 					return;
 				}
-				Model_List.Add( Entity );
+				Form_List.Add( Entity );
 			}
 		}
 
@@ -359,12 +370,18 @@ namespace DEVS_DD
         {
             int index = V_LIST.FocusedItem.Index;
             string finding_model = V_LIST.Items[index].SubItems[0].Text;
-            int num = FindModel( finding_model );
 
-			//MODEL[num].Show();
-			//MODEL[num].BringToFront();
+			for( int i = 0; i < Form_List.Count; i++ )
+			{
+				if( Form_List[i].Name == finding_model )
+				{
+					Form_List[i].Show();
+					Form_List[i].BringToFront();
+				}
+			}
         }
 
+		// <<<<<<<<<<<<<<<< List View >>>>>>>>>>>>>>>>>>>>>
         private void V_LIST_ColumnClick( object sender, ColumnClickEventArgs e )
         {
             // 방향 초기화
@@ -394,6 +411,7 @@ namespace DEVS_DD
             V_LIST.ListViewItemSorter = null;
         }
 
+		// <<<<<<<<<<<<<<<< Socket Communication >>>>>>>>>>>>>>>>>>>>>
         private void F_MAIN_Load( object sender, EventArgs e )
         {
             server = new Socket( AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp );

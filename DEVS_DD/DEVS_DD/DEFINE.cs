@@ -17,8 +17,9 @@ namespace DEVS_DD{
 
 		public const int INIT = 0;
 
-		public const string STR_EMPTY = "";
-		public const string STR_YES = "1";
+		public const string YES = "1";
+        public const string ROOT = "root";
+		public const string ROOT_COORDINATOR = "CM,root,R:EF_A,0,";
 
 		// Form Position
 		public	const int FORM_GAP	= 100;
