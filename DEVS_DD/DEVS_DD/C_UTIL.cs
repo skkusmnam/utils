@@ -46,7 +46,7 @@ namespace DEVS_DD
 			if( ( ( DataGridView )OBJ )[C, R].Value != null )
 				return ( ( DataGridView )OBJ )[C, R].Value.ToString();
 			else
-				return C_DEFINE.EMPTY;
+				return DEFINE.EMPTY;
 		}
 
         public void ClearGrid()
@@ -74,7 +74,7 @@ namespace DEVS_DD
 
 		public void SetLabelText( object obj, string text )
 		{
-			if( text == C_DEFINE.EMPTY )
+			if( text == DEFINE.EMPTY )
 				( ( Label )obj ).Visible = false;
 			else
 			{
@@ -85,7 +85,7 @@ namespace DEVS_DD
 
 		public void SetLabelText( object obj1, object obj2, string text )
 		{
-			if( text == C_DEFINE.EMPTY )
+			if( text == DEFINE.EMPTY )
 			{
 				( ( Label )obj1 ).Visible = false;
 				( ( Label )obj2 ).Visible = false;

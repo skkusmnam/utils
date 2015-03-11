@@ -19,10 +19,10 @@ namespace DEVS_DD
 
 		public F_ATOMIC()
 		{
-			name	= C_DEFINE.EMPTY;
-			sigma	= C_DEFINE.EMPTY;
-			phase	= C_DEFINE.EMPTY;
-			port	= C_DEFINE.EMPTY;
+			name	= DEFINE.EMPTY;
+			sigma	= DEFINE.EMPTY;
+			phase	= DEFINE.EMPTY;
+			port	= DEFINE.EMPTY;
 
 			InitializeComponent();
 
@@ -65,31 +65,31 @@ namespace DEVS_DD
 			C_UTIL UTIL = new C_UTIL();
 			switch( type )
 			{
-				case C_DEFINE.ATOMIC_OUT:
+				case DEFINE.ATOMIC_OUT:
 					UTIL.SetGroupBoxName( GB_NAME, Name );
 
 					UTIL.SetGroupBoxName( GB_OUTPORT, Port );
 					UTIL.SetLabelText( LB_OUTPORT, Job );
 
-					UTIL.SetGroupBoxName( GB_SIGMA, C_DEFINE.SIGMA );
+					UTIL.SetGroupBoxName( GB_SIGMA, DEFINE.SIGMA );
 					UTIL.SetLabelText( LB_SIGMA, Sigma );
 					
-					UTIL.SetGroupBoxName( GB_PHASE, C_DEFINE.PHASE );
+					UTIL.SetGroupBoxName( GB_PHASE, DEFINE.PHASE );
 					UTIL.SetLabelText( LB_PHASE, Phase );
 
 					UTIL.SetGroupBoxVisible( GB_INPORT, false );
 					break;
 
-				case C_DEFINE.ATOMIC_IN:
+				case DEFINE.ATOMIC_IN:
 					UTIL.SetGroupBoxName( GB_NAME, Name );
 
 					UTIL.SetGroupBoxName( GB_INPORT, Port );
 					UTIL.SetLabelText( LB_INPORT, Job );
 
-					UTIL.SetGroupBoxName( GB_SIGMA, C_DEFINE.SIGMA );
+					UTIL.SetGroupBoxName( GB_SIGMA, DEFINE.SIGMA );
 					UTIL.SetLabelText( LB_SIGMA, Sigma );
 
-					UTIL.SetGroupBoxName( GB_PHASE, C_DEFINE.PHASE );
+					UTIL.SetGroupBoxName( GB_PHASE, DEFINE.PHASE );
 					UTIL.SetLabelText( LB_PHASE, Phase );
 
 					UTIL.SetGroupBoxVisible( GB_OUTPORT, false );

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 
 namespace DEVS_DD{
-    class C_DEFINE {
+    class DEFINE {
 		public	const string EMPTY	= "";
 		public	const string BLANK	= " ";
 
@@ -14,6 +14,10 @@ namespace DEVS_DD{
         public  const int CRD = 1;
         public  const int SIM = 2;
         public  const int ATM = 3;
+
+		public const int INIT = 0;
+
+		public const string STR_EMPTY = "";
 
 		// Form Position
 		public	const int FORM_GAP	= 100;

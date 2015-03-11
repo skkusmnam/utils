@@ -15,6 +15,7 @@ namespace DEVS_DD
     public partial class F_MAIN: Form 
 	{
 		C_UTIL		UTIL	= new C_UTIL();
+		MODEL_LIST MODEL_LIST = new MODEL_LIST();
 		F_ATOMIC	ATM		= new F_ATOMIC();
 		F_MODEL[] MODEL;
 
@@ -26,6 +27,9 @@ namespace DEVS_DD
 		private int row_cnt;	// Row Count
 		private int model_num;	// Model Num
 		private	int	model_cnt;	// Model Count
+
+		List<string> model_line = new List<string>();
+		List<MODEL_LIST> model_list = new List<MODEL_LIST>();
 
         public F_MAIN()
         {
@@ -39,7 +43,7 @@ namespace DEVS_DD
 
         private void BT_LOAD_Click( object sender, EventArgs e )
         {
-			string	fileName = C_DEFINE.EMPTY;
+			string	fileName = DEFINE.EMPTY;
 
             OpenFileDialog open_fine = new OpenFileDialog();
             {
@@ -95,7 +99,7 @@ namespace DEVS_DD
 			int num = FindModel( name );
 			string type = UTIL.GetValue( 0, row );
 
-			if( ( type == C_DEFINE.COORDINATOR ) || ( type == C_DEFINE.SIM_FIRST ) || ( type == C_DEFINE.SIM_LAST ) )
+			if( ( type == DEFINE.COORDINATOR ) || ( type == DEFINE.SIM_FIRST ) || ( type == DEFINE.SIM_LAST ) )
 			{
                 SetModelInfo(type, num);
                 MODEL[num].ShowModelInfo(type);
@@ -103,7 +107,7 @@ namespace DEVS_DD
                 MODEL[num].Show();
                 MODEL[num].BringToFront();
 			}
-			else if( ( type == C_DEFINE.ATOMIC_IN ) || ( type == C_DEFINE.ATOMIC_OUT) )
+			else if( ( type == DEFINE.ATOMIC_IN ) || ( type == DEFINE.ATOMIC_OUT) )
 			{
 				SetAtomicInfo();
 				ATM.ShowAtomicInfo( type );
@@ -130,7 +134,7 @@ namespace DEVS_DD
 
 		private int FindModel( string name )
 		{
-			int i = C_DEFINE.ERR;
+			int i = DEFINE.ERR;
             for (i = 0; i < model_cnt; i++)
 			{
 				if( MODEL[i].Text == name )
@@ -163,35 +167,35 @@ namespace DEVS_DD
 		{
 			if( model_num == 0 )
 			{
-				MODEL[model_num].Location = new Point( C_DEFINE.INIT_X, C_DEFINE.INIT_Y );
+				MODEL[model_num].Location = new Point( DEFINE.INIT_X, DEFINE.INIT_Y );
 			}
 			else
 			{
 				int n = -1, x = -1, y = -1;
 
-				if( name == C_DEFINE.EF )
+				if( name == DEFINE.EF )
 				{
-					x = MODEL[0].Location.X + MODEL[0].Size.Width + C_DEFINE.FORM_GAP;
+					x = MODEL[0].Location.X + MODEL[0].Size.Width + DEFINE.FORM_GAP;
 					y = MODEL[0].Location.Y;
 				}
-				else if( name == C_DEFINE.GENR )
+				else if( name == DEFINE.GENR )
 				{
-					n = FindModel( C_DEFINE.EF );
-					x = MODEL[n].Location.X + ( C_DEFINE.INIT_X );
-					y = MODEL[n].Location.Y + ( C_DEFINE.INIT_X );
+					n = FindModel( DEFINE.EF );
+					x = MODEL[n].Location.X + ( DEFINE.INIT_X );
+					y = MODEL[n].Location.Y + ( DEFINE.INIT_X );
 				}
-				else if( name == C_DEFINE.TRANSD )
+				else if( name == DEFINE.TRANSD )
 				{
-					n = FindModel( C_DEFINE.EF );
-					x = MODEL[n].Location.X + C_DEFINE.INIT_X;
-					y = MODEL[n].Location.Y + C_DEFINE.INIT_Y * 2;
+					n = FindModel( DEFINE.EF );
+					x = MODEL[n].Location.X + DEFINE.INIT_X;
+					y = MODEL[n].Location.Y + DEFINE.INIT_Y * 2;
 				}
 				else
 				{
 					int size = FindLargeLocation();
 
-					x = size + C_DEFINE.INIT_X;
-					y = size + C_DEFINE.INIT_Y;
+					x = size + DEFINE.INIT_X;
+					y = size + DEFINE.INIT_Y;
 				}
 
 				MODEL[model_num].Location = new Point( x, y );
@@ -204,7 +208,7 @@ namespace DEVS_DD
 
 			for( int i = 0; i < model_num; i++ )
 			{
-				if( ( MODEL[i].Text == C_DEFINE.EF ) || ( MODEL[i].Text == C_DEFINE.GENR ) || ( MODEL[i].Text == C_DEFINE.TRANSD ) )
+				if( ( MODEL[i].Text == DEFINE.EF ) || ( MODEL[i].Text == DEFINE.GENR ) || ( MODEL[i].Text == DEFINE.TRANSD ) )
 					continue;
 
 				if( MODEL[i].Location.X > max )
@@ -218,19 +222,19 @@ namespace DEVS_DD
 		{
 			UTIL.DataGrid = DG_VIEW;
 			
-			if( i != C_DEFINE.ERR )
+			if( i != DEFINE.ERR )
 			{
 				switch( type )
 				{
-					case C_DEFINE.COORDINATOR:
-					case C_DEFINE.SIM_FIRST:
+					case DEFINE.COORDINATOR:
+					case DEFINE.SIM_FIRST:
 						MODEL[i].Message= UTIL.GetValue( 2, row );
 						MODEL[i].From	= UTIL.GetValue( 3, row );
 						MODEL[i].Time	= UTIL.GetValue( 4, row );
 						MODEL[i].Port	= UTIL.GetValue( 5, row );
 						MODEL[i].Saying	= UTIL.GetValue( 6, row );
 						break;
-					case C_DEFINE.SIM_LAST:
+					case DEFINE.SIM_LAST:
 						MODEL[i].Sigma	= UTIL.GetValue( 2, row );
 						MODEL[i].Phase	= UTIL.GetValue( 3, row );
 						MODEL[i].Job	= UTIL.GetValue( 5, row );
@@ -348,8 +352,9 @@ namespace DEVS_DD
                 string recvData = Encoding.UTF8.GetString( data, 0, recv );
                 TB_LOG.Text = "";
                 TB_LOG.Text += recvData + Environment.NewLine;
-                byte[] message2 = Encoding.UTF8.GetBytes( recvData );
-                client.BeginSend( message2, 0, message2.Length, SocketFlags.None, new AsyncCallback( SendData ), client );
+				//byte[] message2 = Encoding.UTF8.GetBytes( recvData );
+				//client.BeginSend( message2, 0, message2.Length, SocketFlags.None, new AsyncCallback( SendData ), client );
+				ParseMessage( recvData );
             }
             catch ( Exception e )
             {
@@ -362,6 +367,43 @@ namespace DEVS_DD
             TB_LOG.SelectionStart = TB_LOG.Text.Length;
             TB_LOG.ScrollToCaret();
         }
+
+		private void ParseMessage( string message )
+		{
+			//int num = Convert.ToInt32( message[0] );
+			int num = Convert.ToInt32( message[0] ) - 48;
+			if( num == DEFINE.INIT )
+			{
+				//string[] token = message.Split( '|' );
+				//foreach( string line in token )
+				//{
+				//    if( line.
+				//    if( line.Length > 0 )
+				//        model_line.Add( line );
+				//}
+
+				string[] words = message.Split( '|' );
+
+				for( int i = 0; i < words.Length; i++ )
+				{
+					if( i == 0 )
+						continue;
+					else if( words[i] != DEFINE.STR_EMPTY )
+						model_line.Add( words[i] );
+				}
+			}
+
+			
+
+
+			//MessageBox.Show( message[0].ToString() );
+		}
+
+		private void BT_PACKET_Click ( object sender, EventArgs e )
+		{
+			string temp = "0|CM,root,EF_A,1,|AM,EF_A,P,2,|CM,EF_A,EF,2,|AM,EF,GENR,3,|AM,EF,TRANSD,3,|";
+			ParseMessage( temp );
+		}
     }
 
     // 리스트뷰의 정렬을 위하여 사용함.

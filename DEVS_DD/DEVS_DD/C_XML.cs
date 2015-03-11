@@ -47,30 +47,30 @@ namespace DEVS_DD
 		
                 switch( reader.Name )
                 {
-                    case C_DEFINE.COORDINATOR:
+                    case DEFINE.COORDINATOR:
 						AddGridRow( 1 );
-                        SetCell( 0, C_DEFINE.COORDINATOR );
-                        LoadAttributes( reader.NodeType, C_DEFINE.CRD );
+                        SetCell( 0, DEFINE.COORDINATOR );
+                        LoadAttributes( reader.NodeType, DEFINE.CRD );
                         break;
-                    case C_DEFINE.SIM_FIRST:
+                    case DEFINE.SIM_FIRST:
 						AddGridRow( 1 );
-						SetCell( 0, C_DEFINE.SIM_FIRST );
-                        LoadAttributes( reader.NodeType, C_DEFINE.SIM );
+						SetCell( 0, DEFINE.SIM_FIRST );
+                        LoadAttributes( reader.NodeType, DEFINE.SIM );
                         break;
-					case C_DEFINE.SIM_LAST:
+					case DEFINE.SIM_LAST:
 						AddGridRow( 1 );
-						SetCell( 0, C_DEFINE.SIM_LAST );
-						LoadAttributes( reader.NodeType, C_DEFINE.SIM );
+						SetCell( 0, DEFINE.SIM_LAST );
+						LoadAttributes( reader.NodeType, DEFINE.SIM );
 						break;
-                    case C_DEFINE.ATOMIC_IN:
+                    case DEFINE.ATOMIC_IN:
 						AddGridRow( 1 );
-						SetCell( 0, C_DEFINE.ATOMIC_IN );
-						LoadAttributes( reader.NodeType, C_DEFINE.ATM );
+						SetCell( 0, DEFINE.ATOMIC_IN );
+						LoadAttributes( reader.NodeType, DEFINE.ATM );
 						break;
-					case C_DEFINE.ATOMIC_OUT:
+					case DEFINE.ATOMIC_OUT:
 						AddGridRow( 1 );
-						SetCell( 0, C_DEFINE.ATOMIC_OUT );
-						LoadAttributes( reader.NodeType, C_DEFINE.ATM );
+						SetCell( 0, DEFINE.ATOMIC_OUT );
+						LoadAttributes( reader.NodeType, DEFINE.ATM );
                         break;
                 }
             }
@@ -104,9 +104,9 @@ namespace DEVS_DD
 
                         switch( flag )
                         {
-                            case C_DEFINE.CRD:
-                            case C_DEFINE.SIM:
-							case C_DEFINE.ATM:
+                            case DEFINE.CRD:
+                            case DEFINE.SIM:
+							case DEFINE.ATM:
                                 InsertNode( reader.Name, reader.Value );
                                 break;
                         }
@@ -129,7 +129,7 @@ namespace DEVS_DD
 		{
 			start_flag = false;
 
-			if( name == C_DEFINE.EF_A )
+			if( name == DEFINE.EF_A )
 			{
 				start_flag = false;
 				return start_flag;
@@ -141,35 +141,35 @@ namespace DEVS_DD
         {
             switch( attr )
             {
-                case C_DEFINE.NAME:
+                case DEFINE.NAME:
 					AddModelList( value );
                     SetCell( 1, value );
                     break;
-                case C_DEFINE.MESSAGE:
+                case DEFINE.MESSAGE:
                     SetCell( 2, value );
                     break;
-                case C_DEFINE.FROM:
+                case DEFINE.FROM:
                     SetCell( 3, value );
                     break;
-                case C_DEFINE.TIME:
+                case DEFINE.TIME:
                     SetCell( 4, value );
                     break;
-				case C_DEFINE.CPORT:
+				case DEFINE.CPORT:
 					SetCell( 5, value );
 					break;
-                case C_DEFINE.SAYING:
+                case DEFINE.SAYING:
                     SetCell( 6, value );
                     break;
-                case C_DEFINE.SIGMA:
+                case DEFINE.SIGMA:
                     SetCell( 2, value );
                     break;
-                case C_DEFINE.PHASE:
+                case DEFINE.PHASE:
                     SetCell( 3, value );
                     break;
-				case C_DEFINE.APORT:
+				case DEFINE.APORT:
 					SetCell( 4, value );
 					break;
-                case C_DEFINE.JOB:
+                case DEFINE.JOB:
                     SetCell( 5, value );
                     break;				
             }

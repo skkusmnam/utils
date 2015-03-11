@@ -24,11 +24,11 @@ namespace DEVS_DD {
 		{
 			this.name	= name;
 
-			message = C_DEFINE.EMPTY;
-			from	= C_DEFINE.EMPTY;
-			port	= C_DEFINE.EMPTY;
-			time	= C_DEFINE.EMPTY;
-			saying	= C_DEFINE.EMPTY;
+			message = DEFINE.EMPTY;
+			from	= DEFINE.EMPTY;
+			port	= DEFINE.EMPTY;
+			time	= DEFINE.EMPTY;
+			saying	= DEFINE.EMPTY;
 
 			InitializeComponent();
 
@@ -89,8 +89,8 @@ namespace DEVS_DD {
 			C_UTIL UTIL = new C_UTIL();
 			switch( type )
 			{
-				case C_DEFINE.COORDINATOR:
-				case C_DEFINE.SIM_FIRST:
+				case DEFINE.COORDINATOR:
+				case DEFINE.SIM_FIRST:
 					UTIL.SetGroupBoxName( GB_CRD, name );
 
 					UTIL.SetLabelText( LB_MESSAGE, LB01, Message );
@@ -102,11 +102,11 @@ namespace DEVS_DD {
 
 					UTIL.SetGroupBoxVisible( GB_SIM, false );
 					break;
-				case C_DEFINE.SIM_LAST:
+				case DEFINE.SIM_LAST:
 					UTIL.SetGroupBoxName( GB_SIM, name );
 
-					string state1 = Sigma + C_DEFINE.BLANK + Phase;
-					string state2 = Sigma + C_DEFINE.BLANK + Phase + C_DEFINE.BLANK + Job + C_DEFINE.BLANK + Sigma;
+					string state1 = Sigma + DEFINE.BLANK + Phase;
+					string state2 = Sigma + DEFINE.BLANK + Phase + DEFINE.BLANK + Job + DEFINE.BLANK + Sigma;
 					
 					UTIL.SetLabelText( LB_STATE1, LB11, state1 );
 					UTIL.SetLabelText( LB_JOB, LB12, Job );
