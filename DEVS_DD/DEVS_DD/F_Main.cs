@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Threading;
 using System.Net;
 using System.Net.Sockets;
 
@@ -22,9 +23,11 @@ namespace DEVS_DD
         private Socket server;
 
 		private	int	row;
-		private int row_cnt;	// Row Count
+		private int packet_cnt;
 		private int model_num;	// Model Num
 		private	int	model_cnt;	// Model Count
+
+		string recvData = DEFINE.EMPTY;
 
 		List<int> Depth_List = new List<int>();
 		List<string> Child_List = new List<string>();
@@ -33,7 +36,7 @@ namespace DEVS_DD
         public F_MAIN()
         {
 			row		    = 0;
-            row_cnt     = 0;
+			packet_cnt = 0;
 			model_num	= 0;
             model_cnt   = 0;
 
@@ -155,28 +158,11 @@ namespace DEVS_DD
 			{
 				string temp_name = Form_List[i].Name;
 				Form_List[i].Text = temp_name;
-				Form_List[i].Show();
 
 				AddListItem( temp_name );
 				model_num++;
 			}
 			SetFormPosition();
-		}
-
-		private void GetMinDepth()
-		{
-			//if( Depth_List.Count > idx )
-			//{
-			//    Depth_List.RemoveAt( idx );
-			//    Depth_List.Sort();
-			//}
-
-			
-
-			//if( Depth_List.Count == 0 )
-			//    return -1;
-			//else
-			//    return Depth_List[0];
 		}
 
 		private void SetFormPosition()
@@ -204,9 +190,10 @@ namespace DEVS_DD
 					while( ExistCurrentPosition( pos_x, pos_y ) )
 						pos_y = pos_y + DEFINE.FORM_GAP;
 				}
-				
+
 				Form_List[i].Location = new Point( pos_x, pos_y );
-				Form_List[i].Flag = true;				
+				Form_List[i].Flag = true;
+				Form_List[i].Show();
 
 				GetChildList( Form_List[i].Name );
 				
@@ -226,11 +213,11 @@ namespace DEVS_DD
 						else
 							pos_y = Form_List[i].Location.Y + DEFINE.FORM_GAP;
 					}
-
 					
 					index = GetModelIndex( Child_List[j] );
 					Form_List[index].Location = new Point( pos_x, pos_y );
 					Form_List[index].Flag = true;
+					Form_List[index].Show();
 				}
 
 				if( Form_List.Count() != CountFormFlag() )
@@ -318,19 +305,6 @@ namespace DEVS_DD
 			}
 			return result;
 		}
-		//private string GetChildName( string name )
-		//{
-		//    string result = DEFINE.EMPTY;
-		//    for( int i = 0; i < Form_List.Count; i++ )
-		//    {
-		//        if( Form_List[i].Flag == true )
-		//            continue;
-		//        else if( Form_List[i].Parent == name )
-		//            result = Form_List[i].Name;
-		//    }
-
-		//    return result;
-		//}
 
 		private void SetModelDepth()
 		{
@@ -339,22 +313,6 @@ namespace DEVS_DD
 				Depth_List.Add( Form_List[i].Depth );
 			}
 			Depth_List.Sort();
-		}
-
-		private int FindLargeLocation()
-		{
-			int max = -9;
-
-			for( int i = 0; i < model_num; i++ )
-			{
-				//if( ( MODEL[i].Text == DEFINE.EF ) || ( MODEL[i].Text == DEFINE.GENR ) || ( MODEL[i].Text == DEFINE.TRANSD ) )
-				//    continue;
-
-				//if( MODEL[i].Location.X > max )
-				//    max = MODEL[i].Location.X;
-			}
-
-			return max;
 		}
 
 		private void SetModelInfo( string type, int i )
@@ -415,38 +373,12 @@ namespace DEVS_DD
 
 		private void CreateModelForm( string message )
 		{
+
 			int num = Convert.ToInt32( message[0] ) - 48;
 			if( num == DEFINE.INIT )
 			{
 				ParseMessage( message );
 				CreateModel();
-
-				//CreateModel( name );
-
-				//UTIL.SetRowSelection( row );
-
-				//int num = FindModel( name );
-				//string type = UTIL.GetValue( 0, row );
-
-				//if( ( type == DEFINE.COORDINATOR ) || ( type == DEFINE.SIM_FIRST ) || ( type == DEFINE.SIM_LAST ) )
-				//{
-				//    SetModelInfo( type, num );
-				//    MODEL[num].ShowModelInfo( type );
-
-				//    MODEL[num].Show();
-				//    MODEL[num].BringToFront();
-				//}
-				//else if( ( type == DEFINE.ATOMIC_IN ) || ( type == DEFINE.ATOMIC_OUT ) )
-				//{
-				//    SetAtomicInfo();
-				//    ATM.ShowAtomicInfo( type );
-
-				//    ATM.Show();
-				//    ATM.BringToFront();
-				//}
-
-				//row++;
-
 			}
 		}
 
@@ -530,11 +462,11 @@ namespace DEVS_DD
 		// <<<<<<<<<<<<<<<< Socket Communication >>>>>>>>>>>>>>>>>>>>>
         private void F_MAIN_Load( object sender, EventArgs e )
         {
-            server = new Socket( AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp );
-            IPEndPoint iep = new IPEndPoint( IPAddress.Any, 10000 );
-            server.Bind( iep );
-            server.Listen( 5 );
-            server.BeginAccept( new AsyncCallback( AcceptConn ), server );
+			server = new Socket( AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp );
+			IPEndPoint iep = new IPEndPoint( IPAddress.Any, 9000 );
+			server.Bind( iep );
+			server.Listen( 5 );
+			server.BeginAccept( new AsyncCallback( AcceptConn ), server );
         }
 
         private void AcceptConn( IAsyncResult iar )
@@ -557,30 +489,40 @@ namespace DEVS_DD
 
         private void ReceiveData( IAsyncResult iar )
         {
-            try
-            {
-                Socket client = (Socket)iar.AsyncState;
-                int recv = client.EndReceive( iar );
+			Socket client = (Socket)iar.AsyncState;
+			try
+			{
+				int recv = client.EndReceive( iar );
 
-                if ( recv == 0 )
-                {
-                    client.Close();
-                    TB_MSG.Text = "Waiting for a Client...";
-                    server.BeginAccept( new AsyncCallback( AcceptConn ), server );
-                    return;
-                }
+				if( recv == 0 )
+				{
+					client.Close();
+					TB_MSG.Text = "Waiting for a Client...";
+					server.BeginAccept( new AsyncCallback( AcceptConn ), server );
+					return;
+				}
 
-                string recvData = Encoding.UTF8.GetString( data, 0, recv );
-                TB_LOG.Text = "";
-                TB_LOG.Text += recvData + Environment.NewLine;
-				//byte[] message2 = Encoding.UTF8.GetBytes( recvData );
-				//client.BeginSend( message2, 0, message2.Length, SocketFlags.None, new AsyncCallback( SendData ), client );
+				recvData = Encoding.UTF8.GetString( data, 0, recv );
+				TB_LOG.Text = "";
+				TB_LOG.Text = recvData;
+				byte[] message2 = Encoding.UTF8.GetBytes( recvData );
+				client.BeginSend( message2, 0, message2.Length, SocketFlags.None, new AsyncCallback( SendData ), client );
+
+				packet_cnt++;
+			}
+			catch( Exception e )
+			{
+				TB_MSG.Text = e.Message.ToString();
+			}
+
+			if( packet_cnt == 1 )
+			{
 				CreateModelForm( recvData );
-            }
-            catch ( Exception e )
-            {
-                TB_MSG.Text = e.Message.ToString();
-            }
+
+				for( int i = 0; i < Form_List.Count(); i++ )
+					Form_List[i].Refresh();
+			}
+			
         }
     }
 

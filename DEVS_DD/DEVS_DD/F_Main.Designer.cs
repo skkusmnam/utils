@@ -156,10 +156,10 @@
 			// 
 			// TB_MSG
 			// 
-			this.TB_MSG.Location = new System.Drawing.Point(204, 153);
+			this.TB_MSG.Location = new System.Drawing.Point(204, 122);
 			this.TB_MSG.Multiline = true;
 			this.TB_MSG.Name = "TB_MSG";
-			this.TB_MSG.Size = new System.Drawing.Size(283, 21);
+			this.TB_MSG.Size = new System.Drawing.Size(283, 52);
 			this.TB_MSG.TabIndex = 7;
 			// 
 			// BT_PACKET
