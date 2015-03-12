@@ -10,6 +10,7 @@ using System.Windows.Forms;
 namespace DEVS_DD {
 	public partial class F_MODEL: Form 
 	{
+		private bool flag;
 		private string type;
 		private string model;
 		private string parent;
@@ -28,6 +29,7 @@ namespace DEVS_DD {
 
 		public F_MODEL()
 		{
+			flag = false;
 			type = DEFINE.EMPTY;
 			parent = DEFINE.EMPTY;
 			name = DEFINE.EMPTY;
@@ -44,6 +46,12 @@ namespace DEVS_DD {
 
 			TB_POSX.Text = this.Location.X.ToString();
 			TB_POSY.Text = this.Location.Y.ToString();
+		}
+
+		public bool Flag
+		{
+			get { return this.flag; }
+			set { this.flag = value; }
 		}
 
 		public string Type

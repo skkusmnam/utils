@@ -27,6 +27,7 @@ namespace DEVS_DD
 		private	int	model_cnt;	// Model Count
 
 		List<int> Depth_List = new List<int>();
+		List<string> Child_List = new List<string>();
 		List<F_MODEL> Form_List = new List<F_MODEL>();
 
         public F_MAIN()
@@ -184,37 +185,152 @@ namespace DEVS_DD
 			int pos_x = DEFINE.INIT_X;
 			int pos_y = DEFINE.INIT_Y;
 
-			SetModelDepth();
-
-			while( Depth_List.Count != 0 )
+			while( true )
 			{
-				int min_depth = Depth_List[0];
+				int parent_id = -1;
 
-				for( i = 0; i < Form_List.Count; i++ )
+				if( Form_List[i].Flag != false )
 				{
-					// position flag 필요
-					if( min_depth == Form_List[i].Depth )
+					i++;
+					continue;
+				}
+
+				parent_id = GetParentId( Form_List[i].Name );
+				if( parent_id > 0 )
+				{
+					pos_x = Form_List[parent_id].Location.X + DEFINE.FORM_GAP;
+					pos_y = Form_List[parent_id].Location.Y;
+
+					while( ExistCurrentPosition( pos_x, pos_y ) )
+						pos_y = pos_y + DEFINE.FORM_GAP;
+				}
+				
+				Form_List[i].Location = new Point( pos_x, pos_y );
+				Form_List[i].Flag = true;				
+
+				GetChildList( Form_List[i].Name );
+				
+				for( int j = 0; j < Child_List.Count; j++ )
+				{
+					int index = -1;
+
+					if( i == 0 )
 					{
-						Form_List[i].Location = new Point( pos_x, pos_y );
-						Depth_List.RemoveAt( 0 );
-
-						if( Depth_List.Count != 0 )
-							min_depth = Depth_List[0];
-						break;
+						pos_x = Form_List[i].Location.X + DEFINE.FORM_GAP;
+						pos_y = Form_List[i].Location.Y + DEFINE.FORM_GAP;
 					}
+					else
+					{
+						if( j == 0 )
+							pos_x = Form_List[i].Location.X + DEFINE.FORM_GAP;
+						else
+							pos_y = Form_List[i].Location.Y + DEFINE.FORM_GAP;
+					}
+
+					
+					index = GetModelIndex( Child_List[j] );
+					Form_List[index].Location = new Point( pos_x, pos_y );
+					Form_List[index].Flag = true;
 				}
 
-				if( i == min_depth )
-				{
-					pos_y = pos_y + DEFINE.FORM_GAP;
-				}
-				else if( i == min_depth - 1 )
-				{
-					pos_x = pos_x + DEFINE.FORM_GAP;
-					pos_y = pos_y + DEFINE.FORM_GAP;
-				}
+				if( Form_List.Count() != CountFormFlag() )
+					i++;
+				else
+					break;
 			}
 		}
+
+		private bool ExistCurrentPosition( int x, int y )
+		{
+			bool result = false;
+
+			for( int i = 0; i < Form_List.Count; i++ )
+			{
+				if( Form_List[i].Location.X == x && Form_List[i].Location.Y == y )
+					result = true;					
+			}
+
+			return result;
+		}
+
+		private string GetParentName( string model_name )
+		{
+			string result = DEFINE.EMPTY;
+
+			for( int i = 0; i < Form_List.Count; i++ )
+			{
+				if( Form_List[i].Name == model_name )
+					result = Form_List[i].Parent;
+			}
+
+			return result;
+		}
+
+		private int GetParentId( string model_name )
+		{
+			int result = -1;
+			string parent_name = GetParentName( model_name );
+
+			for( int i = 0; i < Form_List.Count; i++ )
+			{
+				if( Form_List[i].Name == parent_name )
+					result = i;
+			}
+
+			return result;
+
+		}
+
+		private int CountFormFlag()
+		{
+			int cnt = 0;
+
+			for( int i = 0; i < Form_List.Count; i++ )
+			{
+				if( Form_List[i].Flag == true )
+					cnt++;
+			}
+
+			return cnt;
+		}
+
+		private void GetChildList( string parent_name )
+		{
+			Child_List.Clear();
+
+			for( int i = 0; i < Form_List.Count; i++ )
+			{
+				if( Form_List[i].Parent == parent_name )
+					Child_List.Add( Form_List[i].Name );
+			}
+		}
+
+		private int GetModelIndex( string model_name )
+		{
+			int result = -1;
+			for( int i = 0; i < Form_List.Count(); i++ )
+			{
+				if( Form_List[i].Name == model_name )
+				{
+					result = i;
+					break;
+				}
+			}
+			return result;
+		}
+		//private string GetChildName( string name )
+		//{
+		//    string result = DEFINE.EMPTY;
+		//    for( int i = 0; i < Form_List.Count; i++ )
+		//    {
+		//        if( Form_List[i].Flag == true )
+		//            continue;
+		//        else if( Form_List[i].Parent == name )
+		//            result = Form_List[i].Name;
+		//    }
+
+		//    return result;
+		//}
 
 		private void SetModelDepth()
 		{
@@ -362,7 +478,7 @@ namespace DEVS_DD
 
 		private void BT_PACKET_Click( object sender, EventArgs e )
 		{
-			string temp = "0|CM,root,EF_A,1,|AM,EF_A,P,2,|CM,EF_A,EF,2,|AM,EF,GENR,3,|AM,EF,TRANSD,3,|";
+			string temp = "0|CM,R:EF_A,EF_A,1,|AM,EF_A,P,2,|CM,EF_A,EF,2,|AM,EF,GENR,3,|AM,EF,TRANSD,3,|";
 			CreateModelForm( temp );
 		}
 
