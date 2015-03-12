@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace DEVS_DD{
-    class DEFINE {
+namespace DEVS_DD
+{
+    class DEFINE 
+	{
 		public	const string EMPTY	= "";
 		public	const string BLANK	= " ";
 

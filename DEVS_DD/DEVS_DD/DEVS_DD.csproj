@@ -65,6 +65,12 @@
     <Compile Include="C_ERROR.cs" />
     <Compile Include="C_UTIL.cs" />
     <Compile Include="C_XML.cs" />
+    <Compile Include="F_CLIENT.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="F_CLIENT.Designer.cs">
+      <DependentUpon>F_CLIENT.cs</DependentUpon>
+    </Compile>
     <Compile Include="F_ATOMIC.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -85,6 +91,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="F_CLIENT.resx">
+      <DependentUpon>F_CLIENT.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="F_ATOMIC.resx">
       <DependentUpon>F_ATOMIC.cs</DependentUpon>
     </EmbeddedResource>

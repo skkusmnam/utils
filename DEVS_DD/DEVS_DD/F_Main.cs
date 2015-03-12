@@ -85,6 +85,7 @@ namespace DEVS_DD
 
         private void BT_STEP_Click( object sender, EventArgs e )
         {
+			
 			//UTIL.DataGrid = DG_VIEW;
 
 			//if( row == UTIL.GetRowCount() - 2 )
@@ -306,42 +307,6 @@ namespace DEVS_DD
 			return result;
 		}
 
-		private void SetModelDepth()
-		{
-			for( int i = 0; i < Form_List.Count; i++ )
-			{
-				Depth_List.Add( Form_List[i].Depth );
-			}
-			Depth_List.Sort();
-		}
-
-		private void SetModelInfo( string type, int i )
-		{
-			UTIL.DataGrid = DG_VIEW;
-			
-			if( i != DEFINE.ERR )
-			{
-				//switch( type )
-				//{
-				//    case DEFINE.COORDINATOR:
-				//    case DEFINE.SIM_FIRST:
-				//        MODEL[i].Message = UTIL.GetValue( 2, row );
-				//        MODEL[i].From = UTIL.GetValue( 3, row );
-				//        MODEL[i].Time = UTIL.GetValue( 4, row );
-				//        MODEL[i].Port = UTIL.GetValue( 5, row );
-				//        MODEL[i].Saying = UTIL.GetValue( 6, row );
-				//        break;
-				//    case DEFINE.SIM_LAST:
-				//        MODEL[i].Sigma = UTIL.GetValue( 2, row );
-				//        MODEL[i].Phase = UTIL.GetValue( 3, row );
-				//        MODEL[i].Job = UTIL.GetValue( 5, row );
-				//        break;
-				//}				
-			}
-			else
-				MessageBox.Show( C_ERROR.E009 );
-		}
-
 		private void SetAtomicInfo()
 		{
 			UTIL.DataGrid = DG_VIEW;
@@ -377,7 +342,7 @@ namespace DEVS_DD
 			int num = Convert.ToInt32( message[0] ) - 48;
 			if( num == DEFINE.INIT )
 			{
-				ParseMessage( message );
+				ParseMessage( message );				
 				CreateModel();
 			}
 		}
@@ -398,6 +363,7 @@ namespace DEVS_DD
 			for( int i = 0; i < model_line.Count; i++ )
 			{
 				F_MODEL Entity = new F_MODEL();
+
 
 				if( !Entity.SetData( model_line[i] ) )
 				{
@@ -463,10 +429,13 @@ namespace DEVS_DD
         private void F_MAIN_Load( object sender, EventArgs e )
         {
 			server = new Socket( AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp );
-			IPEndPoint iep = new IPEndPoint( IPAddress.Any, 9000 );
+			IPEndPoint iep = new IPEndPoint( IPAddress.Any, 10000 );
 			server.Bind( iep );
 			server.Listen( 5 );
 			server.BeginAccept( new AsyncCallback( AcceptConn ), server );
+
+			//F_CLIENT form = new F_CLIENT();
+			//form.Show();
         }
 
         private void AcceptConn( IAsyncResult iar )
@@ -477,14 +446,14 @@ namespace DEVS_DD
             TB_MSG.Text = client.RemoteEndPoint.ToString() + " is accepted.";
             string welcome = "Welcome to DEVS Diagram Display";
             byte[] message1 = Encoding.UTF8.GetBytes( welcome );
-            client.BeginSend( message1, 0, message1.Length, SocketFlags.None, new AsyncCallback( SendData ), client );
+			client.BeginSend( message1, 0, message1.Length, SocketFlags.None, new AsyncCallback( SendData ), client );
         }
 
         private void SendData( IAsyncResult iar )
         {
-            Socket client = (Socket)iar.AsyncState;
-            int sent = client.EndSend( iar );
-            client.BeginReceive( data, 0, size, SocketFlags.None, new AsyncCallback( ReceiveData ), client );
+			Socket client = (Socket)iar.AsyncState;
+			int sent = client.EndSend( iar );
+			client.BeginReceive( data, 0, size, SocketFlags.None, new AsyncCallback( ReceiveData ), client );
         }
 
         private void ReceiveData( IAsyncResult iar )
@@ -503,26 +472,19 @@ namespace DEVS_DD
 				}
 
 				recvData = Encoding.UTF8.GetString( data, 0, recv );
-				TB_LOG.Text = "";
+				//TB_LOG.Text = "";
 				TB_LOG.Text = recvData;
+				//MessageBox.Show( recvData );
 				byte[] message2 = Encoding.UTF8.GetBytes( recvData );
 				client.BeginSend( message2, 0, message2.Length, SocketFlags.None, new AsyncCallback( SendData ), client );
 
-				packet_cnt++;
-			}
-			catch( Exception e )
-			{
-				TB_MSG.Text = e.Message.ToString();
-			}
-
-			if( packet_cnt == 1 )
-			{
-				CreateModelForm( recvData );
-
-				for( int i = 0; i < Form_List.Count(); i++ )
-					Form_List[i].Refresh();
-			}
+				this.Invoke( (MethodInvoker)delegate() { CreateModelForm( recvData ); } );
 			
+			}
+			catch( SocketException )
+			{
+				TB_MSG.Text = "연결 실패";
+			}
         }
     }
 

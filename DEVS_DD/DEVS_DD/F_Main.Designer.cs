@@ -132,7 +132,7 @@
 			// 
 			this.V_LIST.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.Header1});
-			this.V_LIST.Location = new System.Drawing.Point(504, 12);
+			this.V_LIST.Location = new System.Drawing.Point(524, 12);
 			this.V_LIST.Name = "V_LIST";
 			this.V_LIST.Size = new System.Drawing.Size(208, 296);
 			this.V_LIST.TabIndex = 5;
@@ -170,13 +170,14 @@
 			this.BT_PACKET.TabIndex = 8;
 			this.BT_PACKET.Text = "PACKET";
 			this.BT_PACKET.UseVisualStyleBackColor = true;
+			this.BT_PACKET.TextChanged += new System.EventHandler(this.TB_LOG_TextChanged);
 			this.BT_PACKET.Click += new System.EventHandler(this.BT_PACKET_Click);
 			// 
 			// F_MAIN
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(726, 320);
+			this.ClientSize = new System.Drawing.Size(748, 321);
 			this.Controls.Add(this.BT_PACKET);
 			this.Controls.Add(this.TB_MSG);
 			this.Controls.Add(this.TB_LOG);

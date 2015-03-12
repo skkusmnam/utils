@@ -27,6 +27,8 @@ namespace DEVS_DD {
 		private string phase;
 		private string job;
 
+		
+
 		public F_MODEL()
 		{
 			flag = false;
