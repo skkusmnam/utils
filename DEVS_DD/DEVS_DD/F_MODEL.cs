@@ -25,9 +25,7 @@ namespace DEVS_DD {
 		private string saying;
 		private string sigma;
 		private string phase;
-		private string job;
-
-		
+		private string job;		
 
 		public F_MODEL()
 		{

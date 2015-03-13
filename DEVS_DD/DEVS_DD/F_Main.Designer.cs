@@ -41,7 +41,8 @@
 			this.Header1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.TB_LOG = new System.Windows.Forms.TextBox();
 			this.TB_MSG = new System.Windows.Forms.TextBox();
-			this.BT_PACKET = new System.Windows.Forms.Button();
+			this.BT_CREATE = new System.Windows.Forms.Button();
+			this.BT_SEND = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.DG_VIEW)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -162,23 +163,33 @@
 			this.TB_MSG.Size = new System.Drawing.Size(283, 52);
 			this.TB_MSG.TabIndex = 7;
 			// 
-			// BT_PACKET
+			// BT_CREATE
 			// 
-			this.BT_PACKET.Location = new System.Drawing.Point(402, 245);
-			this.BT_PACKET.Name = "BT_PACKET";
-			this.BT_PACKET.Size = new System.Drawing.Size(75, 28);
-			this.BT_PACKET.TabIndex = 8;
-			this.BT_PACKET.Text = "PACKET";
-			this.BT_PACKET.UseVisualStyleBackColor = true;
-			this.BT_PACKET.TextChanged += new System.EventHandler(this.TB_LOG_TextChanged);
-			this.BT_PACKET.Click += new System.EventHandler(this.BT_PACKET_Click);
+			this.BT_CREATE.Location = new System.Drawing.Point(324, 235);
+			this.BT_CREATE.Name = "BT_CREATE";
+			this.BT_CREATE.Size = new System.Drawing.Size(75, 37);
+			this.BT_CREATE.TabIndex = 8;
+			this.BT_CREATE.Text = "Create Form";
+			this.BT_CREATE.UseVisualStyleBackColor = true;
+			this.BT_CREATE.Click += new System.EventHandler(this.BT_CREATE_Click);
+			// 
+			// BT_SEND
+			// 
+			this.BT_SEND.Location = new System.Drawing.Point(405, 235);
+			this.BT_SEND.Name = "BT_SEND";
+			this.BT_SEND.Size = new System.Drawing.Size(75, 37);
+			this.BT_SEND.TabIndex = 8;
+			this.BT_SEND.Text = "Send Message";
+			this.BT_SEND.UseVisualStyleBackColor = true;
+			this.BT_SEND.Click += new System.EventHandler(this.BT_SEND_Click);
 			// 
 			// F_MAIN
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(748, 321);
-			this.Controls.Add(this.BT_PACKET);
+			this.Controls.Add(this.BT_SEND);
+			this.Controls.Add(this.BT_CREATE);
 			this.Controls.Add(this.TB_MSG);
 			this.Controls.Add(this.TB_LOG);
 			this.Controls.Add(this.V_LIST);
@@ -214,7 +225,8 @@
         private System.Windows.Forms.ColumnHeader Header1;
         private System.Windows.Forms.TextBox TB_LOG;
         private System.Windows.Forms.TextBox TB_MSG;
-		private System.Windows.Forms.Button BT_PACKET;
+		private System.Windows.Forms.Button BT_CREATE;
+		private System.Windows.Forms.Button BT_SEND;
     }
 }
 

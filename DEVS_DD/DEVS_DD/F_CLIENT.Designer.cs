@@ -28,20 +28,21 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.button1 = new System.Windows.Forms.Button();
+			this.BT_CREATE = new System.Windows.Forms.Button();
 			this.textBox1 = new System.Windows.Forms.TextBox();
 			this.textBox2 = new System.Windows.Forms.TextBox();
+			this.BT_SENDING = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
-			// button1
+			// BT_CREATE
 			// 
-			this.button1.Location = new System.Drawing.Point(60, 134);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(180, 82);
-			this.button1.TabIndex = 0;
-			this.button1.Text = "button1";
-			this.button1.UseVisualStyleBackColor = true;
-			this.button1.Click += new System.EventHandler(this.button1_Click);
+			this.BT_CREATE.Location = new System.Drawing.Point(60, 134);
+			this.BT_CREATE.Name = "BT_CREATE";
+			this.BT_CREATE.Size = new System.Drawing.Size(79, 82);
+			this.BT_CREATE.TabIndex = 0;
+			this.BT_CREATE.Text = "Create Form";
+			this.BT_CREATE.UseVisualStyleBackColor = true;
+			this.BT_CREATE.Click += new System.EventHandler(this.BT_CREATE_Click);
 			// 
 			// textBox1
 			// 
@@ -58,15 +59,26 @@
 			this.textBox2.Size = new System.Drawing.Size(180, 89);
 			this.textBox2.TabIndex = 1;
 			// 
-			// Form1
+			// BT_SENDING
+			// 
+			this.BT_SENDING.Location = new System.Drawing.Point(161, 134);
+			this.BT_SENDING.Name = "BT_SENDING";
+			this.BT_SENDING.Size = new System.Drawing.Size(79, 82);
+			this.BT_SENDING.TabIndex = 2;
+			this.BT_SENDING.Text = "Send Message";
+			this.BT_SENDING.UseVisualStyleBackColor = true;
+			this.BT_SENDING.Click += new System.EventHandler(this.BT_SENDING_Click);
+			// 
+			// F_CLIENT
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(284, 262);
+			this.Controls.Add(this.BT_SENDING);
 			this.Controls.Add(this.textBox2);
 			this.Controls.Add(this.textBox1);
-			this.Controls.Add(this.button1);
-			this.Name = "Form1";
+			this.Controls.Add(this.BT_CREATE);
+			this.Name = "F_CLIENT";
 			this.Text = "Form1";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
 			this.ResumeLayout(false);
@@ -76,8 +88,9 @@
 
 		#endregion
 
-		private System.Windows.Forms.Button button1;
+		private System.Windows.Forms.Button BT_CREATE;
 		private System.Windows.Forms.TextBox textBox1;
 		private System.Windows.Forms.TextBox textBox2;
+		private System.Windows.Forms.Button BT_SENDING;
 	}
 }

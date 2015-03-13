@@ -32,6 +32,7 @@ namespace DEVS_DD
 		List<int> Depth_List = new List<int>();
 		List<string> Child_List = new List<string>();
 		List<F_MODEL> Form_List = new List<F_MODEL>();
+		List<MESSAGES> Message_List = new List<MESSAGES>();
 
         public F_MAIN()
         {
@@ -152,19 +153,6 @@ namespace DEVS_DD
             V_LIST.Items.Add( name );
             V_LIST.EndUpdate();
         }
-
-		private void CreateModel()
-		{
-			for( int i = 0; i < Form_List.Count; i++ )
-			{
-				string temp_name = Form_List[i].Name;
-				Form_List[i].Text = temp_name;
-
-				AddListItem( temp_name );
-				model_num++;
-			}
-			SetFormPosition();
-		}
 
 		private void SetFormPosition()
 		{
@@ -330,20 +318,37 @@ namespace DEVS_DD
 			//}
 		}
 
-		private void TB_LOG_TextChanged( object sender, EventArgs e )
+		private void CreateModel()
 		{
-			TB_LOG.SelectionStart = TB_LOG.Text.Length;
-			TB_LOG.ScrollToCaret();
+			for( int i = 0; i < Form_List.Count; i++ )
+			{
+				string temp_name = Form_List[i].Name;
+				Form_List[i].Text = temp_name;
+
+				AddListItem( temp_name );
+				model_num++;
+			}
+			SetFormPosition();
 		}
 
 		private void CreateModelForm( string message )
 		{
-
 			int num = Convert.ToInt32( message[0] ) - 48;
 			if( num == DEFINE.INIT )
 			{
-				ParseMessage( message );				
-				CreateModel();
+				ParseMessage( message );
+				this.Invoke( (MethodInvoker)delegate() { CreateModel(); } );
+			}
+			else
+			{
+				MESSAGES Message = new MESSAGES();
+				Message.ParseMessage( message );
+
+				int model_index = GetModelIndex( Message.Name );
+				Form_List[model_index].BringToFront();
+				// Form_List에 메세지 전송 
+				
+				Message_List.Add( Message );
 			}
 		}
 
@@ -364,7 +369,6 @@ namespace DEVS_DD
 			{
 				F_MODEL Entity = new F_MODEL();
 
-
 				if( !Entity.SetData( model_line[i] ) )
 				{
 					MessageBox.Show( C_ERROR.E010 );
@@ -372,15 +376,6 @@ namespace DEVS_DD
 				}
 				Form_List.Add( Entity );
 			}
-		}
-
-		private void BT_PACKET_Click( object sender, EventArgs e )
-		{
-			string ef_p = "0|CM,R:EF_A,EF_A,1,|AM,EF_A,P,2,|CM,EF_A,EF,2,|AM,EF,GENR,3,|AM,EF,TRANSD,3,|";
-			string ef_mul = "0|CM,R:EF_A,EF_A,1,|CM,EF_A,MUL_ARCH,2,|AM,MUL_ARCH,MUL_C,3,|AM,MUL_ARCH,P1,3,|AM,MUL_ARCH,P2,3,|CM,EF_A,EF,2,|AM,EF,GENR,3,|AM,EF,TRANSD,3,|";
-			string ef_pip = "0|CM,R:EF_A,EF_A,1,|CM,EF_A,PIP_ARCH,2,|AM,PIP_ARCH,PIP_C,3,|AM,PIP_ARCH,P1,3,|AM,PIP_ARCH,P2,3,|CM,EF_A,EF,2,|AM,EF,GENR,3,|AM,EF,TRANSD,3,|";
-
-			CreateModelForm( ef_pip );
 		}
 
         private void V_LIST_DoubleClick( object sender, EventArgs e )
@@ -481,7 +476,8 @@ namespace DEVS_DD
 				byte[] message2 = Encoding.UTF8.GetBytes( recvData );
 				client.BeginSend( message2, 0, message2.Length, SocketFlags.None, new AsyncCallback( SendData ), client );
 
-				this.Invoke( (MethodInvoker)delegate() { CreateModelForm( recvData ); } );
+				CreateModelForm( recvData );
+				//this.Invoke( (MethodInvoker)delegate() { CreateModelForm( recvData ); } );
 			
 			}
 			catch( SocketException )
@@ -489,6 +485,21 @@ namespace DEVS_DD
 				TB_MSG.Text = "연결 실패";
 			}
         }
+
+		private void BT_CREATE_Click( object sender, EventArgs e )
+		{
+			string ef_p = "0|CM,R:EF_A,EF_A,1,|AM,EF_A,P,2,|CM,EF_A,EF,2,|AM,EF,GENR,3,|AM,EF,TRANSD,3,|";
+			string ef_mul = "0|CM,R:EF_A,EF_A,1,|CM,EF_A,MUL_ARCH,2,|AM,MUL_ARCH,MUL_C,3,|AM,MUL_ARCH,P1,3,|AM,MUL_ARCH,P2,3,|CM,EF_A,EF,2,|AM,EF,GENR,3,|AM,EF,TRANSD,3,|";
+			string ef_pip = "0|CM,R:EF_A,EF_A,1,|CM,EF_A,PIP_ARCH,2,|AM,PIP_ARCH,PIP_C,3,|AM,PIP_ARCH,P1,3,|AM,PIP_ARCH,P2,3,|CM,EF_A,EF,2,|AM,EF,GENR,3,|AM,EF,TRANSD,3,|";
+
+			CreateModelForm( ef_pip );
+		}
+
+		private void BT_SEND_Click( object sender, EventArgs e )
+		{
+			string msg1 = "name=R:EF_A,message=DONE,received from=(),with time=0,";
+			CreateModelForm( msg1 );
+		}
     }
 
     // 리스트뷰의 정렬을 위하여 사용함.

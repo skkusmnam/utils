@@ -89,6 +89,7 @@
     <Compile Include="F_MODEL.Designer.cs">
       <DependentUpon>F_MODEL.cs</DependentUpon>
     </Compile>
+    <Compile Include="MESSAGES.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="F_CLIENT.resx">

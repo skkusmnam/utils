@@ -29,9 +29,7 @@ namespace DEVS_DD
 
 		private void button1_Click( object sender, EventArgs e )
 		{
-			string temp = "0|CM,R:EF_A,EF_A,1,|AM,EF_A,P,2,|CM,EF_A,EF,2,|AM,EF,GENR,3,|AM,EF,TRANSD,3,|";
-			byte[] message = Encoding.UTF8.GetBytes( temp );
-			client.BeginSend(message, 0, message.Length, SocketFlags.None, new AsyncCallback(SendData), client);
+			
 		}
 
 		private void Form1_FormClosing( object sender, FormClosingEventArgs e )
@@ -70,6 +68,20 @@ namespace DEVS_DD
 			Socket remote = (Socket)iar.AsyncState;
 			int sent = remote.EndSend( iar );
 			remote.BeginReceive( data, 0, size, SocketFlags.None, new AsyncCallback( ReceiveData ), remote );
+		}
+
+		private void BT_CREATE_Click( object sender, EventArgs e )
+		{
+			string temp = "0|CM,R:EF_A,EF_A,1,|AM,EF_A,P,2,|CM,EF_A,EF,2,|AM,EF,GENR,3,|AM,EF,TRANSD,3,|";
+			byte[] message = Encoding.UTF8.GetBytes( temp );
+			client.BeginSend( message, 0, message.Length, SocketFlags.None, new AsyncCallback( SendData ), client );
+		}
+
+		private void BT_SENDING_Click( object sender, EventArgs e )
+		{
+			string temp = "name=R:EF_A,message=DONE,received from=(),with time=0,";
+			byte[] message = Encoding.UTF8.GetBytes( temp );
+			client.BeginSend( message, 0, message.Length, SocketFlags.None, new AsyncCallback( SendData ), client );
 		}
 
 	}
