@@ -209,10 +209,10 @@ namespace DEVS_DD
 					}
 					else
 					{
-						if( j == 0 )
+						if( j == 0 )	// 부모 모델의 X 위치에서 이동
 							pos_x = Form_List[i].Location.X + DEFINE.FORM_GAP;
-						else
-							pos_y = Form_List[i].Location.Y + DEFINE.FORM_GAP;
+						else			// 바로 전에 생성된 모델의 Y 위치에서 이동
+							pos_y = pos_y + DEFINE.FORM_GAP;
 					}
 					
 					index = GetModelIndex( Child_List[j] );
@@ -376,8 +376,11 @@ namespace DEVS_DD
 
 		private void BT_PACKET_Click( object sender, EventArgs e )
 		{
-			string temp = "0|CM,R:EF_A,EF_A,1,|AM,EF_A,P,2,|CM,EF_A,EF,2,|AM,EF,GENR,3,|AM,EF,TRANSD,3,|";
-			CreateModelForm( temp );
+			string ef_p = "0|CM,R:EF_A,EF_A,1,|AM,EF_A,P,2,|CM,EF_A,EF,2,|AM,EF,GENR,3,|AM,EF,TRANSD,3,|";
+			string ef_mul = "0|CM,R:EF_A,EF_A,1,|CM,EF_A,MUL_ARCH,2,|AM,MUL_ARCH,MUL_C,3,|AM,MUL_ARCH,P1,3,|AM,MUL_ARCH,P2,3,|CM,EF_A,EF,2,|AM,EF,GENR,3,|AM,EF,TRANSD,3,|";
+			string ef_pip = "0|CM,R:EF_A,EF_A,1,|CM,EF_A,PIP_ARCH,2,|AM,PIP_ARCH,PIP_C,3,|AM,PIP_ARCH,P1,3,|AM,PIP_ARCH,P2,3,|CM,EF_A,EF,2,|AM,EF,GENR,3,|AM,EF,TRANSD,3,|";
+
+			CreateModelForm( ef_pip );
 		}
 
         private void V_LIST_DoubleClick( object sender, EventArgs e )
@@ -472,7 +475,7 @@ namespace DEVS_DD
 				}
 
 				recvData = Encoding.UTF8.GetString( data, 0, recv );
-				//TB_LOG.Text = "";
+				TB_LOG.Text = "";
 				TB_LOG.Text = recvData;
 				//MessageBox.Show( recvData );
 				byte[] message2 = Encoding.UTF8.GetBytes( recvData );
