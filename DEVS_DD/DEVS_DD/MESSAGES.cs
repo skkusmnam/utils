@@ -7,7 +7,7 @@ namespace DEVS_DD
 {
 	class MESSAGES
 	{
-		public enum Attributes { Empty, Name, Message, Received_From, With_Time };
+		
 
 		private string name;
 		private string message;
@@ -46,71 +46,9 @@ namespace DEVS_DD
 			set { with_time = value; }
 		}
 
-		public void ParseMessage( string message )
-		{
-			bool flag = false;
-			Attributes attribute = Attributes.Empty;
-			string[] token = message.Split( ',', '=' );
+		
 
-			for( int i = 0; i < token.Length; i++ )
-			{
-				if( flag == false )
-				{
-					attribute = GetAttribute( token[i] );
-					flag = true;
-				}
-				else
-				{
-					SetData( attribute, token[i] );
-					flag = false;
-				}
-
-				if( attribute == Attributes.Empty )
-					break;
-			}
-		}
-
-		public Attributes GetAttribute( string name )
-		{
-			Attributes attribute = Attributes.Empty;
-
-			switch( name )
-			{
-				case "name":
-					attribute = Attributes.Name;
-					break;
-				case "message":
-					attribute = Attributes.Message;
-					break;
-				case "received from":
-					attribute = Attributes.Received_From;
-					break;
-				case "with time":
-					attribute = Attributes.With_Time;
-					break;
-			}
-
-			return attribute;
-		}
-
-		public void SetData( Attributes index, string value )
-		{
-			switch( index )
-			{
-				case Attributes.Name:
-					Name = value;
-					break;
-				case Attributes.Message:
-					Message = value;
-					break;
-				case Attributes.Received_From:
-					Received_From = value;
-					break;
-				case Attributes.With_Time:
-					With_Time = value;
-					break;
-			}
-		}
+		
 
 	}
 }

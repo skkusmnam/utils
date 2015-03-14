@@ -34,14 +34,23 @@ namespace DEVS_DD
 		public	const string TRANSD	= "TRANSD";
 		public	const string GENR	= "GENR";
 
+		// Message Type
+		public const string STAR = "*";
+		public const string EXT = "Ext";		
+		public const string DONE = "DONE";
+		
+
         public  const string COORDINATOR    = "CRD";
         public  const string SIM_FIRST      = "SMF";
 		public	const string SIM_LAST		= "SML";
         public  const string ATOMIC_IN      = "ATI";
 		public  const string ATOMIC_OUT		= "ATO";
 
-        public  const string NAME   = "name";
-        public  const string MESSAGE= "message";
+		public const string MESSAGE_STRING = "-message";
+		public const string RECEIVED_FROM = "received from: ";
+		public const string WITH_TIME = "with time: ";
+
+
         public  const string FROM   = "from";
         public  const string TIME   = "time";
         public  const string SAYING = "saying";

@@ -72,31 +72,24 @@ namespace DEVS_DD
 			( ( DataGridView )OBJ ).Rows[R].Selected = true;
 		}
 
-		public void SetLabelText( object obj, string text )
+		public void SetLabelText( object LABEL, string text )
 		{
-			if( text == DEFINE.EMPTY )
-				( ( Label )obj ).Visible = false;
-			else
-			{
-				( ( Label )obj ).Visible	= true;
-				( ( Label )obj ).Text		= text;
-			}
+			( (Label)LABEL ).Visible = true;
+			( (Label)LABEL ).Text = text;
 		}
 
-		public void SetLabelText( object obj1, object obj2, string text )
+		public void SetLabelVisible( object LABEL, bool flag )
 		{
-			if( text == DEFINE.EMPTY )
-			{
-				( ( Label )obj1 ).Visible = false;
-				( ( Label )obj2 ).Visible = false;
-			}
-			else
-			{
-				( ( Label )obj2 ).Visible	= true;
-				( ( Label )obj1 ).Visible = true;
-				( ( Label )obj1 ).Text		= text;
-			}
+			( (Label)LABEL ).Visible = flag;
 		}
+
+		//public void SetLabelText( object LB_NAME, object LB_VALUE, string text )
+		//{
+		//    ( (Label)LB_NAME ).Visible = true;
+
+		//    ( (Label)LB_VALUE ).Visible = true;
+		//    ( (Label)LB_VALUE ).Text = text;
+		//}
 
 		public void SetGroupBoxName( object obj, string name )
 		{

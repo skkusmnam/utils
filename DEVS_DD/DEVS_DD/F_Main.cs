@@ -23,7 +23,7 @@ namespace DEVS_DD
         private Socket server;
 
 		private	int	row;
-		private int packet_cnt;
+		//private int packet_cnt;
 		private int model_num;	// Model Num
 		private	int	model_cnt;	// Model Count
 
@@ -32,12 +32,12 @@ namespace DEVS_DD
 		List<int> Depth_List = new List<int>();
 		List<string> Child_List = new List<string>();
 		List<F_MODEL> Form_List = new List<F_MODEL>();
-		List<MESSAGES> Message_List = new List<MESSAGES>();
+		//List<MESSAGES> Message_List = new List<MESSAGES>();
 
         public F_MAIN()
         {
 			row		    = 0;
-			packet_cnt = 0;
+			//packet_cnt = 0;
 			model_num	= 0;
             model_cnt   = 0;
 
@@ -341,14 +341,23 @@ namespace DEVS_DD
 			}
 			else
 			{
-				MESSAGES Message = new MESSAGES();
-				Message.ParseMessage( message );
+				int name_begin = message.IndexOf( '=' ) + 1;
+				int name_end = message.IndexOf( ',' );
+				string temp_name = message.Substring( name_begin, name_end - name_begin );
 
-				int model_index = GetModelIndex( Message.Name );
+				int model_index = GetModelIndex( temp_name );
+				Form_List[model_index].ParseMessage( message );
+				Form_List[model_index].ShowFlashMessage();
 				Form_List[model_index].BringToFront();
-				// Form_List에 메세지 전송 
+
+				//MESSAGES Message = new MESSAGES();
+				//Message.ParseMessage( message );
+
+				//
+				//
+				//// Form_List에 메세지 전송 
 				
-				Message_List.Add( Message );
+				//Message_List.Add( Message );
 			}
 		}
 

@@ -141,37 +141,37 @@ namespace DEVS_DD
         {
             switch( attr )
             {
-                case DEFINE.NAME:
-					AddModelList( value );
-                    SetCell( 1, value );
-                    break;
-                case DEFINE.MESSAGE:
-                    SetCell( 2, value );
-                    break;
-                case DEFINE.FROM:
-                    SetCell( 3, value );
-                    break;
-                case DEFINE.TIME:
-                    SetCell( 4, value );
-                    break;
-				case DEFINE.CPORT:
-					SetCell( 5, value );
-					break;
-                case DEFINE.SAYING:
-                    SetCell( 6, value );
-                    break;
-                case DEFINE.SIGMA:
-                    SetCell( 2, value );
-                    break;
-                case DEFINE.PHASE:
-                    SetCell( 3, value );
-                    break;
-				case DEFINE.APORT:
-					SetCell( 4, value );
-					break;
-                case DEFINE.JOB:
-                    SetCell( 5, value );
-                    break;				
+				//case DEFINE.NAME:
+				//    AddModelList( value );
+				//    SetCell( 1, value );
+				//    break;
+				//case DEFINE.MESSAGE:
+				//    SetCell( 2, value );
+				//    break;
+				//case DEFINE.FROM:
+				//    SetCell( 3, value );
+				//    break;
+				//case DEFINE.TIME:
+				//    SetCell( 4, value );
+				//    break;
+				//case DEFINE.CPORT:
+				//    SetCell( 5, value );
+				//    break;
+				//case DEFINE.SAYING:
+				//    SetCell( 6, value );
+				//    break;
+				//case DEFINE.SIGMA:
+				//    SetCell( 2, value );
+				//    break;
+				//case DEFINE.PHASE:
+				//    SetCell( 3, value );
+				//    break;
+				//case DEFINE.APORT:
+				//    SetCell( 4, value );
+				//    break;
+				//case DEFINE.JOB:
+				//    SetCell( 5, value );
+				//    break;				
             }
         }
 
