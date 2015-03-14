@@ -37,7 +37,7 @@ namespace DEVS_DD
 		// Message Type
 		public const string STAR = "*";
 		public const string EXT = "Ext";		
-		public const string DONE = "DONE";
+		public const string DONE = "Done";
 		
 
         public  const string COORDINATOR    = "CRD";

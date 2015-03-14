@@ -79,7 +79,7 @@ namespace DEVS_DD
 
 		private void BT_SENDING_Click( object sender, EventArgs e )
 		{
-			string temp = "name=R:EF_A,message=DONE,received from=(),with time=0,";
+			string temp = "name=R:EF_A,message=Done,received from=(),with time=0,";
 			byte[] message = Encoding.UTF8.GetBytes( temp );
 			client.BeginSend( message, 0, message.Length, SocketFlags.None, new AsyncCallback( SendData ), client );
 		}

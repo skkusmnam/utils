@@ -349,15 +349,6 @@ namespace DEVS_DD
 				Form_List[model_index].ParseMessage( message );
 				Form_List[model_index].ShowFlashMessage();
 				Form_List[model_index].BringToFront();
-
-				//MESSAGES Message = new MESSAGES();
-				//Message.ParseMessage( message );
-
-				//
-				//
-				//// Form_List에 메세지 전송 
-				
-				//Message_List.Add( Message );
 			}
 		}
 
@@ -486,8 +477,6 @@ namespace DEVS_DD
 				client.BeginSend( message2, 0, message2.Length, SocketFlags.None, new AsyncCallback( SendData ), client );
 
 				CreateModelForm( recvData );
-				//this.Invoke( (MethodInvoker)delegate() { CreateModelForm( recvData ); } );
-			
 			}
 			catch( SocketException )
 			{
@@ -506,7 +495,7 @@ namespace DEVS_DD
 
 		private void BT_SEND_Click( object sender, EventArgs e )
 		{
-			string msg1 = "name=R:EF_A,message=DONE,received from=(),with time=0,";
+			string msg1 = "name=R:EF_A,message=Done,received from=(),with time=0,";
 			CreateModelForm( msg1 );
 		}
     }
