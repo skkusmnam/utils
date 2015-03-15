@@ -284,15 +284,18 @@ namespace DEVS_DD {
 			Show_Type show_type = Show_Type.Null;
 			if( name.Contains( "R:" ) )
 				show_type = Show_Type.Root_Coordinator;
+			else if( Model == DEFINE.COUPLED_MODEL )
+				show_type = Show_Type.Coordinator;
 
 			switch( show_type )
 			{
 				case Show_Type.Root_Coordinator:
 					ShowRootCoordinator();
 					break;
+				case Show_Type.Coordinator:
+					ShowCoordinator();
+					break;
 			}
-
-
 		}
 
 		public void ShowRootCoordinator()
@@ -324,6 +327,28 @@ namespace DEVS_DD {
 					UTIL.SetLabelText( LB_VALUE_01, Clock_Time );
 					UTIL.SetLabelText( LB_VALUE_02, Relative_To );
 					UTIL.SetLabelText( LB_VALUE_03, Clock_Base );
+					UTIL.SetLabelVisible( LB_VALUE_04, false );
+					break;
+			}
+		}
+
+		public void ShowCoordinator()
+		{
+			switch( message )
+			{
+				case DEFINE.STAR:
+					UTIL.SetGroupBoxName( GB_CRD, name );
+
+					UTIL.SetLabelText( LB_MESSAGE, Message + DEFINE.MESSAGE_STRING );
+
+					UTIL.SetLabelText( LB_NAME_01, DEFINE.RECEIVED_FROM );
+					UTIL.SetLabelText( LB_NAME_02, DEFINE.WITH_TIME );
+					UTIL.SetLabelVisible( LB_NAME_03, false );
+					UTIL.SetLabelVisible( LB_NAME_04, false );
+
+					UTIL.SetLabelText( LB_VALUE_01, Received_From );
+					UTIL.SetLabelText( LB_VALUE_02, With_Time );
+					UTIL.SetLabelVisible( LB_VALUE_03, false );
 					UTIL.SetLabelVisible( LB_VALUE_04, false );
 					break;
 			}

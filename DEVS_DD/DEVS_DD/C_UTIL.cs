@@ -100,14 +100,6 @@ namespace DEVS_DD
 			( (Label)LABEL ).Visible = flag;
 		}
 
-		//public void SetLabelText( object LB_NAME, object LB_VALUE, string text )
-		//{
-		//    ( (Label)LB_NAME ).Visible = true;
-
-		//    ( (Label)LB_VALUE ).Visible = true;
-		//    ( (Label)LB_VALUE ).Text = text;
-		//}
-
 		public void SetGroupBoxName( object obj, string name )
 		{
 			( ( GroupBox )obj ).Text = name;

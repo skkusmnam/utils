@@ -493,7 +493,7 @@ namespace DEVS_DD
 			string ef_mul = "0|CM,R:EF_A,EF_A,1,|CM,EF_A,MUL_ARCH,2,|AM,MUL_ARCH,MUL_C,3,|AM,MUL_ARCH,P1,3,|AM,MUL_ARCH,P2,3,|CM,EF_A,EF,2,|AM,EF,GENR,3,|AM,EF,TRANSD,3,|";
 			string ef_pip = "0|CM,R:EF_A,EF_A,1,|CM,EF_A,PIP_ARCH,2,|AM,PIP_ARCH,PIP_C,3,|AM,PIP_ARCH,P1,3,|AM,PIP_ARCH,P2,3,|CM,EF_A,EF,2,|AM,EF,GENR,3,|AM,EF,TRANSD,3,|";
 
-			CreateModelForm( ef_pip );
+			CreateModelForm( ef_p );
 		}
 
 		private void BT_SEND_Click( object sender, EventArgs e )
@@ -506,6 +506,9 @@ namespace DEVS_DD
 					break;
 				case 1:
 					Message_List.Add( "name=R:EF_A,message=*,clock time=10,relative to=EF_A,clock-base=10," );
+					break;
+				case 2:
+					Message_List.Add( "name=EF_A,message=*,received from=R:EF_A,with time=0," );
 					break;
 			}
 

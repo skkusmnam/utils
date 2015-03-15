@@ -39,12 +39,17 @@ namespace DEVS_DD
 		public const string EXT = "Ext";		
 		public const string DONE = "Done";
 		
-
+		// << 지울 것
         public  const string COORDINATOR    = "CRD";
         public  const string SIM_FIRST      = "SMF";
 		public	const string SIM_LAST		= "SML";
         public  const string ATOMIC_IN      = "ATI";
 		public  const string ATOMIC_OUT		= "ATO";
+		// >>
+
+		public const string COUPLED_MODEL = "CM";
+		public const string ATOMIC_MODEL = "AM";
+
 
 		public const string MESSAGE_STRING = "-message";
 		public const string RECEIVED_FROM = "received from: ";
