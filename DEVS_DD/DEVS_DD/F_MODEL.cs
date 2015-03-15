@@ -13,7 +13,17 @@ namespace DEVS_DD {
 		C_UTIL UTIL = new C_UTIL();
 
 		public enum Show_Type { Null, Root_Coordinator, Coordinator, Simulator };
-		public enum Attributes { Null, Name, Message, Received_From, With_Time };
+		public enum Attributes 
+		{ 
+			Null, 
+			Name, 
+			Message, 
+			Received_From, 
+			With_Time, 
+			Clock_Time,
+			Relative_To,
+			Clock_Base
+		};
 
 		private bool flag;
 		private string type;
@@ -26,6 +36,9 @@ namespace DEVS_DD {
 		private string message;
 		private string received_from;
 		private string with_time;
+		private string clock_time;
+		private string relative_to;
+		private string clock_base;
 
 		private string port;		
 		private string saying;
@@ -114,6 +127,34 @@ namespace DEVS_DD {
 			set { with_time = value; }
 		}
 
+		public string Clock_Time
+		{
+			get { return clock_time; }
+			set { clock_time = value; }
+		}
+
+		public string Relative_To
+		{
+			get { return relative_to; }
+			set { relative_to = value; }
+		}
+
+		public string Clock_Base
+		{
+			get { return clock_base; }
+			set { clock_base = value; }
+		}
+
+		public void Initialize()
+		{
+			Message = DEFINE.EMPTY;
+			Received_From  = DEFINE.EMPTY;
+			With_Time  = DEFINE.EMPTY;
+			Clock_Time  = DEFINE.EMPTY;
+			Relative_To  = DEFINE.EMPTY;
+			Clock_Base = DEFINE.EMPTY;
+		}
+
 		public bool SetData( string data )
 		{
 			string[] token = data.Split( ',' );
@@ -196,6 +237,15 @@ namespace DEVS_DD {
 				case "with time":
 					attribute = Attributes.With_Time;
 					break;
+				case "clock time":
+					attribute = Attributes.Clock_Time;
+					break;
+				case "relative to":
+					attribute = Attributes.Relative_To;
+					break;
+				case "clock-base":
+					attribute = Attributes.Clock_Base;
+					break;
 			}
 
 			return attribute;
@@ -216,6 +266,15 @@ namespace DEVS_DD {
 					break;
 				case Attributes.With_Time:
 					With_Time = value;
+					break;
+				case Attributes.Clock_Time:
+					Clock_Time = value;
+					break;
+				case Attributes.Relative_To:
+					Relative_To = value;
+					break;
+				case Attributes.Clock_Base:
+					Clock_Base = value;
 					break;
 			}
 		}
@@ -254,11 +313,18 @@ namespace DEVS_DD {
 					UTIL.SetLabelText( LB_VALUE_02, With_Time );
 					UTIL.SetLabelVisible( LB_VALUE_03, false );
 					UTIL.SetLabelVisible( LB_VALUE_04, false );
+					break;
+				case DEFINE.STAR:
+					UTIL.SetLabelVisible( LB_MESSAGE, false );
+					UTIL.SetLabelText( LB_NAME_01, DEFINE.CLOCK_TIME );
+					UTIL.SetLabelText( LB_NAME_02, DEFINE.RELATIVE_TO );
+					UTIL.SetLabelText( LB_NAME_03, DEFINE.CLOCK_BASE );
+					UTIL.SetLabelVisible( LB_NAME_04, false );
 
-
-					//UTIL.SetLabelText( LB_NAME_01, LB_VALUE_01, Message );
-					//UTIL.SetLabelText( LB_NAME_01, LB_VALUE_02, Received_From );
-					//UTIL.SetLabelText( LB_NAME_03, LB_VALUE_03, With_Time );
+					UTIL.SetLabelText( LB_VALUE_01, Clock_Time );
+					UTIL.SetLabelText( LB_VALUE_02, Relative_To );
+					UTIL.SetLabelText( LB_VALUE_03, Clock_Base );
+					UTIL.SetLabelVisible( LB_VALUE_04, false );
 					break;
 			}
 		}
@@ -269,7 +335,6 @@ namespace DEVS_DD {
 			TB_POSY.Text = this.Location.Y.ToString();
 		}
 
-		
 		
 
 		//public string Port

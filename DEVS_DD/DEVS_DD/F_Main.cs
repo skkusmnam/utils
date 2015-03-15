@@ -27,17 +27,19 @@ namespace DEVS_DD
 		private int model_num;	// Model Num
 		private	int	model_cnt;	// Model Count
 
+		private int message_count;
+
 		string recvData = DEFINE.EMPTY;
 
 		List<int> Depth_List = new List<int>();
 		List<string> Child_List = new List<string>();
+		List<string> Message_List = new List<string>();
 		List<F_MODEL> Form_List = new List<F_MODEL>();
-		//List<MESSAGES> Message_List = new List<MESSAGES>();
 
         public F_MAIN()
         {
 			row		    = 0;
-			//packet_cnt = 0;
+			message_count = 0;
 			model_num	= 0;
             model_cnt   = 0;
 
@@ -346,6 +348,7 @@ namespace DEVS_DD
 				string temp_name = message.Substring( name_begin, name_end - name_begin );
 
 				int model_index = GetModelIndex( temp_name );
+				Form_List[model_index].Initialize();
 				Form_List[model_index].ParseMessage( message );
 				Form_List[model_index].ShowFlashMessage();
 				Form_List[model_index].BringToFront();
@@ -495,8 +498,20 @@ namespace DEVS_DD
 
 		private void BT_SEND_Click( object sender, EventArgs e )
 		{
-			string msg1 = "name=R:EF_A,message=Done,received from=(),with time=0,";
-			CreateModelForm( msg1 );
+			int idx = -1;
+			switch( message_count )
+			{
+				case 0:
+					Message_List.Add( "name=R:EF_A,message=Done,received from=(),with time=0," );
+					break;
+				case 1:
+					Message_List.Add( "name=R:EF_A,message=*,clock time=10,relative to=EF_A,clock-base=10," );
+					break;
+			}
+
+			idx = Message_List.Count() - 1;
+			CreateModelForm( Message_List[idx] );
+			message_count++;
 		}
     }
 

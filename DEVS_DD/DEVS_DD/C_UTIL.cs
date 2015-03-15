@@ -74,6 +74,23 @@ namespace DEVS_DD
 
 		public void SetLabelText( object LABEL, string text )
 		{
+			switch( ( (Label)LABEL ).Name )
+			{
+				case "LB_MESSAGE":
+				case "LB_VALUE_01":
+				case "LB_VALUE_02":
+				case "LB_VALUE_03":
+				case "LB_VALUE_04":
+					( (Label)LABEL ).TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+					break;
+				case "LB_NAME_01":
+				case "LB_NAME_02":
+				case "LB_NAME_03":
+				case "LB_NAME_04":
+					( (Label)LABEL ).TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+					break;
+			}
+
 			( (Label)LABEL ).Visible = true;
 			( (Label)LABEL ).Text = text;
 		}

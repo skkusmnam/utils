@@ -49,6 +49,9 @@ namespace DEVS_DD
 		public const string MESSAGE_STRING = "-message";
 		public const string RECEIVED_FROM = "received from: ";
 		public const string WITH_TIME = "with time: ";
+		public const string CLOCK_TIME = "clock time: ";
+		public const string RELATIVE_TO = "relative to: ";
+		public const string CLOCK_BASE = "clock-base: ";
 
 
         public  const string FROM   = "from";

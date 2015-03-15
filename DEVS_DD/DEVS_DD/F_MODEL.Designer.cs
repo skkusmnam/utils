@@ -73,88 +73,105 @@
 			// LB_VALUE_02
 			// 
 			this.LB_VALUE_02.AutoSize = true;
+			this.LB_VALUE_02.Font = new System.Drawing.Font("Cambria", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.LB_VALUE_02.Location = new System.Drawing.Point(175, 90);
 			this.LB_VALUE_02.Name = "LB_VALUE_02";
-			this.LB_VALUE_02.Size = new System.Drawing.Size(80, 28);
+			this.LB_VALUE_02.Size = new System.Drawing.Size(76, 28);
 			this.LB_VALUE_02.TabIndex = 8;
 			this.LB_VALUE_02.Text = "label1";
+			this.LB_VALUE_02.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// LB_VALUE_03
 			// 
 			this.LB_VALUE_03.AutoSize = true;
+			this.LB_VALUE_03.Font = new System.Drawing.Font("Cambria", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.LB_VALUE_03.Location = new System.Drawing.Point(175, 119);
 			this.LB_VALUE_03.Name = "LB_VALUE_03";
-			this.LB_VALUE_03.Size = new System.Drawing.Size(80, 28);
+			this.LB_VALUE_03.Size = new System.Drawing.Size(76, 28);
 			this.LB_VALUE_03.TabIndex = 7;
 			this.LB_VALUE_03.Text = "label1";
+			this.LB_VALUE_03.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// LB_VALUE_04
 			// 
 			this.LB_VALUE_04.AutoSize = true;
+			this.LB_VALUE_04.Font = new System.Drawing.Font("Cambria", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.LB_VALUE_04.Location = new System.Drawing.Point(175, 148);
 			this.LB_VALUE_04.Name = "LB_VALUE_04";
-			this.LB_VALUE_04.Size = new System.Drawing.Size(80, 28);
+			this.LB_VALUE_04.Size = new System.Drawing.Size(76, 28);
 			this.LB_VALUE_04.TabIndex = 6;
 			this.LB_VALUE_04.Text = "label1";
+			this.LB_VALUE_04.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// LB_VALUE_01
 			// 
 			this.LB_VALUE_01.AutoSize = true;
+			this.LB_VALUE_01.Font = new System.Drawing.Font("Cambria", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.LB_VALUE_01.Location = new System.Drawing.Point(175, 61);
 			this.LB_VALUE_01.Name = "LB_VALUE_01";
-			this.LB_VALUE_01.Size = new System.Drawing.Size(80, 28);
+			this.LB_VALUE_01.Size = new System.Drawing.Size(76, 28);
 			this.LB_VALUE_01.TabIndex = 5;
 			this.LB_VALUE_01.Text = "label1";
+			this.LB_VALUE_01.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// LB_NAME_04
 			// 
 			this.LB_NAME_04.AutoSize = true;
 			this.LB_NAME_04.Font = new System.Drawing.Font("Cambria", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.LB_NAME_04.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
 			this.LB_NAME_04.Location = new System.Drawing.Point(92, 150);
 			this.LB_NAME_04.Name = "LB_NAME_04";
 			this.LB_NAME_04.Size = new System.Drawing.Size(77, 25);
 			this.LB_NAME_04.TabIndex = 4;
 			this.LB_NAME_04.Text = "Saying:";
+			this.LB_NAME_04.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// LB_NAME_02
 			// 
 			this.LB_NAME_02.AutoSize = true;
 			this.LB_NAME_02.Font = new System.Drawing.Font("Cambria", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.LB_NAME_02.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
 			this.LB_NAME_02.Location = new System.Drawing.Point(52, 92);
 			this.LB_NAME_02.Name = "LB_NAME_02";
 			this.LB_NAME_02.Size = new System.Drawing.Size(117, 25);
 			this.LB_NAME_02.TabIndex = 3;
 			this.LB_NAME_02.Text = "Clock Time:";
+			this.LB_NAME_02.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// LB_NAME_03
 			// 
 			this.LB_NAME_03.AutoSize = true;
 			this.LB_NAME_03.Font = new System.Drawing.Font("Cambria", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.LB_NAME_03.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
 			this.LB_NAME_03.Location = new System.Drawing.Point(63, 121);
 			this.LB_NAME_03.Name = "LB_NAME_03";
 			this.LB_NAME_03.Size = new System.Drawing.Size(106, 25);
 			this.LB_NAME_03.TabIndex = 2;
 			this.LB_NAME_03.Text = "With Port:";
+			this.LB_NAME_03.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// LB_NAME_01
 			// 
 			this.LB_NAME_01.AutoSize = true;
 			this.LB_NAME_01.Font = new System.Drawing.Font("Cambria", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.LB_NAME_01.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
 			this.LB_NAME_01.Location = new System.Drawing.Point(17, 63);
 			this.LB_NAME_01.Name = "LB_NAME_01";
 			this.LB_NAME_01.Size = new System.Drawing.Size(152, 25);
 			this.LB_NAME_01.TabIndex = 1;
 			this.LB_NAME_01.Text = "Received From:";
+			this.LB_NAME_01.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// LB_MESSAGE
 			// 
 			this.LB_MESSAGE.AutoSize = true;
-			this.LB_MESSAGE.Font = new System.Drawing.Font("Cambria", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.LB_MESSAGE.Font = new System.Drawing.Font("Cambria", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.LB_MESSAGE.Location = new System.Drawing.Point(17, 32);
 			this.LB_MESSAGE.Name = "LB_MESSAGE";
-			this.LB_MESSAGE.Size = new System.Drawing.Size(80, 28);
+			this.LB_MESSAGE.Size = new System.Drawing.Size(76, 28);
 			this.LB_MESSAGE.TabIndex = 0;
 			this.LB_MESSAGE.Text = "label1";
+			this.LB_MESSAGE.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// GB_SIM
 			// 
