@@ -62,7 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DEFINE.cs" />
-    <Compile Include="C_ERROR.cs" />
+    <Compile Include="MESSAGE.cs" />
     <Compile Include="C_UTIL.cs" />
     <Compile Include="C_XML.cs" />
     <Compile Include="F_CLIENT.cs">
@@ -71,11 +71,11 @@
     <Compile Include="F_CLIENT.Designer.cs">
       <DependentUpon>F_CLIENT.cs</DependentUpon>
     </Compile>
-    <Compile Include="F_ATOMIC.cs">
+    <Compile Include="F_MODEL_INFO.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="F_ATOMIC.Designer.cs">
-      <DependentUpon>F_ATOMIC.cs</DependentUpon>
+    <Compile Include="F_MODEL_INFO.Designer.cs">
+      <DependentUpon>F_MODEL_INFO.cs</DependentUpon>
     </Compile>
     <Compile Include="F_MAIN.cs">
       <SubType>Form</SubType>
@@ -95,8 +95,8 @@
     <EmbeddedResource Include="F_CLIENT.resx">
       <DependentUpon>F_CLIENT.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="F_ATOMIC.resx">
-      <DependentUpon>F_ATOMIC.cs</DependentUpon>
+    <EmbeddedResource Include="F_MODEL_INFO.resx">
+      <DependentUpon>F_MODEL_INFO.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="F_MAIN.resx">
       <DependentUpon>F_MAIN.cs</DependentUpon>

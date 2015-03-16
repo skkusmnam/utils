@@ -315,6 +315,8 @@ namespace DEVS_DD {
 				show_type = Show_Type.Root_Coordinator;
 			else if( Model == DEFINE.COUPLED_MODEL )
 				show_type = Show_Type.Coordinator;
+			else if( Model == DEFINE.ATOMIC_MODEL )
+				show_type = Show_Type.Simulator;
 
 			switch( show_type )
 			{
@@ -323,6 +325,9 @@ namespace DEVS_DD {
 					break;
 				case Show_Type.Coordinator:
 					ShowCoordinator();
+					break;
+				case Show_Type.Simulator:
+					ShowSimualtor();
 					break;
 			}
 		}
@@ -398,78 +403,47 @@ namespace DEVS_DD {
 			}
 		}
 
+		public void ShowSimualtor()
+		{
+			switch( message )
+			{
+				case DEFINE.STAR:
+					UTIL.SetGroupBoxName( GB_CRD, name );
+
+					UTIL.SetLabelText( LB_MESSAGE, Message + DEFINE.MESSAGE_STRING );
+
+					UTIL.SetLabelText( LB_NAME_01, DEFINE.RECEIVED_FROM );
+					UTIL.SetLabelText( LB_NAME_02, DEFINE.WITH_TIME );
+					UTIL.SetLabelVisible( LB_NAME_03, false );
+					UTIL.SetLabelVisible( LB_NAME_04, false );
+
+					UTIL.SetLabelText( LB_VALUE_01, Received_From );
+					UTIL.SetLabelText( LB_VALUE_02, With_Time );
+					UTIL.SetLabelVisible( LB_VALUE_03, false );
+					UTIL.SetLabelVisible( LB_VALUE_04, false );
+					break;
+				case DEFINE.EXT:
+					UTIL.SetGroupBoxName( GB_CRD, name );
+
+					UTIL.SetLabelText( LB_MESSAGE, Message + DEFINE.MESSAGE_STRING );
+
+					UTIL.SetLabelText( LB_NAME_01, DEFINE.RECEIVED_FROM );
+					UTIL.SetLabelText( LB_NAME_02, DEFINE.WITH_TIME );
+					UTIL.SetLabelText( LB_NAME_03, DEFINE.WITH_PORT );
+					UTIL.SetLabelText( LB_NAME_04, DEFINE.SAYING );
+
+					UTIL.SetLabelText( LB_VALUE_01, Received_From );
+					UTIL.SetLabelText( LB_VALUE_02, With_Time );
+					UTIL.SetLabelText( LB_VALUE_03, With_Port );
+					UTIL.SetLabelText( LB_VALUE_04, Saying );
+					break;
+			}
+		}
+
 		private void F_MODEL_Move( object sender, EventArgs e )
 		{
 			TB_POSX.Text = this.Location.X.ToString();
 			TB_POSY.Text = this.Location.Y.ToString();
 		}
-
-		
-
-		//public string Port
-		//{
-		//    get { return port; }
-		//    set { port = value; }
-		//}
-
-		
-
-		//public string Saying
-		//{
-		//    get { return saying; }
-		//    set { saying = value; }
-		//}
-
-		//public string Sigma
-		//{
-		//    get { return sigma; }
-		//    set { sigma = value; }
-		//}
-
-		//public string Phase
-		//{
-		//    get { return phase; }
-		//    set { phase = value; }
-		//}
-
-		//public string Job
-		//{
-		//    get { return job; }
-		//    set { job = value; }
-		//}
-
-		//public void ShowModelInfo( string type )
-		//{
-		//    C_UTIL UTIL = new C_UTIL();
-		//    switch( type )
-		//    {
-		//        case DEFINE.COORDINATOR:
-		//        case DEFINE.SIM_FIRST:
-		//            UTIL.SetGroupBoxName( GB_CRD, name );
-
-		//            UTIL.SetLabelText( LB_MESSAGE, LB01, Message );
-		//            UTIL.SetLabelText( LB_FROM, From );
-		//            UTIL.SetLabelText( LB_TIME, LB03, Time );
-		//            UTIL.SetLabelText( LB_PORT, LB04, Port );
-		//            UTIL.SetLabelText( LB_SAYING, LB05, Saying );
-
-		//            UTIL.SetGroupBoxVisible( GB_SIM, false );
-		//            break;
-		//        case DEFINE.SIM_LAST:
-		//            UTIL.SetGroupBoxName( GB_SIM, name );
-
-		//            string state1 = Sigma + DEFINE.BLANK + Phase;
-		//            string state2 = Sigma + DEFINE.BLANK + Phase + DEFINE.BLANK + Job + DEFINE.BLANK + Sigma;
-					
-		//            UTIL.SetLabelText( LB_STATE1, LB11, state1 );
-		//            UTIL.SetLabelText( LB_JOB, LB12, Job );
-		//            UTIL.SetLabelText( LB_STATE2, LB13, state2 );
-
-		//            UTIL.SetGroupBoxVisible( GB_CRD, false );
-		//            break;
-		//    }
-		//}
-
-		
 	}
 }

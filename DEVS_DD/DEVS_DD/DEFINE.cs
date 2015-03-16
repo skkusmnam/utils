@@ -47,9 +47,10 @@ namespace DEVS_DD
 		public  const string ATOMIC_OUT		= "ATO";
 		// >>
 
+		public const string PROCESSOR = "processor";
+		public const string MODEL_INFO = "model_info";
 		public const string COUPLED_MODEL = "CM";
 		public const string ATOMIC_MODEL = "AM";
-
 
 		public const string MESSAGE_STRING = "-message";
 		public const string RECEIVED_FROM = "received from: ";

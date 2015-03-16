@@ -15,14 +15,15 @@ namespace DEVS_DD
 {
     public partial class F_MAIN: Form 
 	{
-		C_UTIL		UTIL	= new C_UTIL();
-		F_ATOMIC	ATM		= new F_ATOMIC();
+		C_UTIL UTIL	= new C_UTIL();
+		MESSAGE MSG = new MESSAGE();
+		F_MODEL_INFO INFO = new F_MODEL_INFO();
 
         private byte[] data = new byte[1024];
         private int size = 1024;
         private Socket server;
 
-		private	int	row;
+		//private	int	row;
 		//private int packet_cnt;
 		private int model_num;	// Model Num
 		private	int	model_cnt;	// Model Count
@@ -299,12 +300,12 @@ namespace DEVS_DD
 
 		private void SetAtomicInfo()
 		{
-			UTIL.DataGrid = DG_VIEW;
-			ATM.Name	= UTIL.GetValue( 1, row );
-			ATM.Sigma	= UTIL.GetValue( 2, row );
-			ATM.Phase	= UTIL.GetValue( 3, row );
-			ATM.Port	= UTIL.GetValue( 4, row );
-			ATM.Job		= UTIL.GetValue( 5, row );
+			//UTIL.DataGrid = DG_VIEW;
+			//ATM.Name	= UTIL.GetValue( 1, row );
+			//ATM.Sigma	= UTIL.GetValue( 2, row );
+			//ATM.Phase	= UTIL.GetValue( 3, row );
+			//ATM.Port	= UTIL.GetValue( 4, row );
+			//ATM.Job		= UTIL.GetValue( 5, row );
 		}
 
 		private void BT_PLAY_Click( object sender, EventArgs e )
@@ -343,15 +344,34 @@ namespace DEVS_DD
 			}
 			else
 			{
-				int name_begin = message.IndexOf( '=' ) + 1;
-				int name_end = message.IndexOf( ',' );
-				string temp_name = message.Substring( name_begin, name_end - name_begin );
+				int index = message.IndexOf( '&' );
+				string type = message.Substring( 0, index );
 
-				int model_index = GetModelIndex( temp_name );
-				Form_List[model_index].Initialize();
-				Form_List[model_index].ParseMessage( message );
-				Form_List[model_index].ShowFlashMessage();
-				Form_List[model_index].BringToFront();
+				if( type == DEFINE.PROCESSOR )
+				{
+					int name_begin = message.IndexOf( '=' ) + 1;
+					int name_end = message.IndexOf( ',' );
+					string temp_name = message.Substring( name_begin, name_end - name_begin );
+
+					int model_index = GetModelIndex( temp_name );
+					if( model_index == -1 )
+					{
+						MSG.ShowMessage( MESSAGE.ERR001 );
+						return;
+					}
+					message = message.Remove( 0, index + 1 );
+
+					Form_List[model_index].Initialize();
+					Form_List[model_index].ParseMessage( message );
+					Form_List[model_index].ShowFlashMessage();
+					Form_List[model_index].BringToFront();
+				}
+				else if( type == DEFINE.MODEL_INFO )
+				{
+					INFO.Show();
+
+
+				}
 			}
 		}
 
@@ -374,7 +394,7 @@ namespace DEVS_DD
 
 				if( !Entity.SetData( model_line[i] ) )
 				{
-					MessageBox.Show( C_ERROR.E010 );
+					MessageBox.Show( MESSAGE.ERR010 );
 					return;
 				}
 				Form_List.Add( Entity );
@@ -502,16 +522,22 @@ namespace DEVS_DD
 			switch( message_count )
 			{
 				case 0:
-					Message_List.Add( "name=R:EF_A,message=Done,received from=(),with time=0," );
+					Message_List.Add( "processor&name=R:EF_A,message=Done,received from=(),with time=0," );
 					break;
 				case 1:
-					Message_List.Add( "name=R:EF_A,message=*,clock time=10,relative to=EF_A,clock-base=10," );
+					Message_List.Add( "processor&name=R:EF_A,message=*,clock time=0,relative to=EF_A,clock-base=0," );
 					break;
 				case 2:
-					Message_List.Add( "name=EF_A,message=*,received from=R:EF_A,with time=0," );
+					Message_List.Add( "processor&name=EF_A,message=*,received from=R:EF_A,with time=0," );
 					break;
 				case 3:
-					Message_List.Add( "name=EF,message=Ext,received from=GENR,with time=0,with port=out,saying=job0," );
+					Message_List.Add( "processor&name=EF,message=Ext,received from=GENR,with time=0,with port=out,saying=job0," );
+					break;
+				case 4:
+					Message_List.Add( "processor&name=GENR,message=*,received from=EF,with time=0," );
+					break;
+				case 5:
+					Message_List.Add( "processor&name=TRANSD,message=Ext,received from=EF,with time=0,with port=arrived,saying=job0," );
 					break;
 			}
 
