@@ -510,6 +510,9 @@ namespace DEVS_DD
 				case 2:
 					Message_List.Add( "name=EF_A,message=*,received from=R:EF_A,with time=0," );
 					break;
+				case 3:
+					Message_List.Add( "name=EF,message=Ext,received from=GENR,with time=0,with port=out,saying=job0," );
+					break;
 			}
 
 			idx = Message_List.Count() - 1;

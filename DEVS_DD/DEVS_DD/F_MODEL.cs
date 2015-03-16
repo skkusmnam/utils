@@ -22,7 +22,9 @@ namespace DEVS_DD {
 			With_Time, 
 			Clock_Time,
 			Relative_To,
-			Clock_Base
+			Clock_Base,
+			With_Port,
+			Saying
 		};
 
 		private bool flag;
@@ -39,9 +41,10 @@ namespace DEVS_DD {
 		private string clock_time;
 		private string relative_to;
 		private string clock_base;
+		private string with_port;
+		private string saying;
 
 		private string port;		
-		private string saying;
 		private string sigma;
 		private string phase;
 		private string job;		
@@ -145,6 +148,18 @@ namespace DEVS_DD {
 			set { clock_base = value; }
 		}
 
+		public string With_Port
+		{
+			get { return with_port; }
+			set { with_port = value; }
+		}
+
+		public string Saying
+		{
+			get { return saying; }
+			set { saying = value; }
+		}
+
 		public void Initialize()
 		{
 			Message = DEFINE.EMPTY;
@@ -153,6 +168,8 @@ namespace DEVS_DD {
 			Clock_Time  = DEFINE.EMPTY;
 			Relative_To  = DEFINE.EMPTY;
 			Clock_Base = DEFINE.EMPTY;
+			With_Port = DEFINE.EMPTY;
+			Saying = DEFINE.EMPTY;
 		}
 
 		public bool SetData( string data )
@@ -246,6 +263,12 @@ namespace DEVS_DD {
 				case "clock-base":
 					attribute = Attributes.Clock_Base;
 					break;
+				case "with port":
+					attribute = Attributes.With_Port;
+					break;
+				case "saying":
+					attribute = Attributes.Saying;
+					break;
 			}
 
 			return attribute;
@@ -275,6 +298,12 @@ namespace DEVS_DD {
 					break;
 				case Attributes.Clock_Base:
 					Clock_Base = value;
+					break;
+				case Attributes.With_Port:
+					With_Port = value;
+					break;
+				case Attributes.Saying:
+					Saying = value;
 					break;
 			}
 		}
@@ -350,6 +379,21 @@ namespace DEVS_DD {
 					UTIL.SetLabelText( LB_VALUE_02, With_Time );
 					UTIL.SetLabelVisible( LB_VALUE_03, false );
 					UTIL.SetLabelVisible( LB_VALUE_04, false );
+					break;
+				case DEFINE.EXT:
+					UTIL.SetGroupBoxName( GB_CRD, name );
+
+					UTIL.SetLabelText( LB_MESSAGE, Message + DEFINE.MESSAGE_STRING );
+
+					UTIL.SetLabelText( LB_NAME_01, DEFINE.RECEIVED_FROM );
+					UTIL.SetLabelText( LB_NAME_02, DEFINE.WITH_TIME );
+					UTIL.SetLabelText( LB_NAME_03, DEFINE.WITH_PORT );
+					UTIL.SetLabelText( LB_NAME_04, DEFINE.SAYING );
+
+					UTIL.SetLabelText( LB_VALUE_01, Received_From );
+					UTIL.SetLabelText( LB_VALUE_02, With_Time );
+					UTIL.SetLabelText( LB_VALUE_03, With_Port );
+					UTIL.SetLabelText( LB_VALUE_04, Saying );
 					break;
 			}
 		}

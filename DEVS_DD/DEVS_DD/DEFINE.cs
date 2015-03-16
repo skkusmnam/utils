@@ -57,11 +57,12 @@ namespace DEVS_DD
 		public const string CLOCK_TIME = "clock time: ";
 		public const string RELATIVE_TO = "relative to: ";
 		public const string CLOCK_BASE = "clock-base: ";
-
+		public const string WITH_PORT = "with port: ";
+		public const string SAYING = "saying: ";
 
         public  const string FROM   = "from";
         public  const string TIME   = "time";
-        public  const string SAYING = "saying";
+		//public  const string SAYING = "saying";
         public  const string SIGMA  = "sigma";
         public  const string PHASE  = "phase";
         public  const string JOB    = "job";
