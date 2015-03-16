@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace DEVS_DD
 {
-	public partial class F_ATOMIC: Form
+	public partial class F_MODEL_INFO: Form
 	{
 		private	string	name;
 		private	string	sigma;
@@ -17,7 +17,7 @@ namespace DEVS_DD
 		private string	job;
 		private	string	port;
 
-		public F_ATOMIC()
+		public F_MODEL_INFO()
 		{
 			name	= DEFINE.EMPTY;
 			sigma	= DEFINE.EMPTY;
