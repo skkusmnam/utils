@@ -1,6 +1,6 @@
 ﻿namespace DEVS_DD
 {
-	partial class F_MODEL_INFO
+	partial class F_ATOMIC
 	{
 		/// <summary>
 		/// Required designer variable.
